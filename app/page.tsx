@@ -1,20 +1,112 @@
+import { experienceData, educationData, skillsData } from '@/app/data/data';
+import SectionTitle from '@/components/SectionTitle';
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-slate-100 font-sans">
-      <div className="max-w-2xl text-center space-y-6">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-emerald-800">
-          David Recuero
-        </h1>
+    <main className="min-h-screen bg-slate-200 font-mono text-slate-800 px-6 sm:px-12 md:px-24 py-8 max-w-4xl mx-auto">
+      
+      <section className="mb-20 pt-8">
         
-        <p className="text-xl text-slate-800">
-          Software Developer
-        </p>
+        {/* Badge Companies */}
+        <div className="inline-block px-4 py-2 mb-6 text-sm  text-slate-700 bg-slate-300 rounded-full">
+          Ex Scopely &middot; Voodoo Games &middot; UPlay
+        </div>
 
-        <p className="text-slate-900 text-base leading-relaxed">
-          6 Years of experience in software development, specializing in web and mobile applications.
-        </p>
+        {/* Hero Title */}
+        <h1 className="text-2xl sm:text-4xl md:text-5xl tracking-tight text-slate-900 leading-tight mb-8">
+          Video Game Development &bull; Full-Stack Web Development &bull; Quality Assurance  
+        </h1>
 
-      </div>
+        {/* CV downloader*/}
+        <div className="flex flex-wrap items-center gap-6 text-sm">
+          <a
+            href="/cv.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Download CV (PDF)
+          </a>
+        </div>
+
+        {/* Showreel*/}
+        <div className="mt-12 w-full aspect-video rounded-2xl overflow-hidden shadow-lg border border-slate-300 bg-slate-300">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover pointer-events-none opacity-90"
+          >
+            <source src="/placeholderVideo.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+      </section>
+
+      {/* Experience & Education*/}
+      <section className="mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+          
+          {/* Experience */}
+          <div>
+            <SectionTitle>Work Experience</SectionTitle>
+
+            <div className="space-y-10">
+              {experienceData.map((item, index) => (
+                <div key={index}>
+                  <span className="block text-xs text-slate-600 mb-1">{item.period}</span>
+                  <h3 className="text-base text-slate-900 font-semibold">{item.title}</h3>
+                  <p className="text-sm text-slate-700 mb-2">{item.role}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Education */}
+          <div>
+            <SectionTitle>Education</SectionTitle>
+            
+            <div className="space-y-10">
+              {educationData.map((item, index) => (
+                <div key={index}>
+                  <span className="block text-xs text-slate-600 mb-1">{item.period}</span>
+                  <h3 className="text-base text-slate-900 font-semibold">{item.title}</h3>
+                  <p className="text-sm text-slate-700 mb-2">{item.institution}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Skills and Technologies */}
+      <section className="mb-20">
+        <SectionTitle>Skills & Technologies</SectionTitle>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          {skillsData.map((group, index) => (
+            <div key={index}>
+              <h3 className="text-xs text-slate-900 uppercase mb-3 font-semibold">{group.category}</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                {group.items.map((skill, skillIndex) => (
+                  <li key={skillIndex}>{skill}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
