@@ -1,4 +1,4 @@
-import { experienceData, educationData, skillsData } from '@/app/data/data';
+import { experienceData, educationData, skillsData } from '@/data/data';
 import SectionTitle from '@/components/SectionTitle';
 
 export default function Home() {

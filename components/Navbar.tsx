@@ -1,17 +1,46 @@
 'use client';
 
-import { navLinks } from '@/app/data/data';
+import { useEffect, useRef } from 'react';
+import { navLinks } from '@/data/data';
 import Link from 'next/link';
-import { usePathname  } from 'next/navigation';    // Hook to get the current pathname for active link styling
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
+
+  //Gets the height of the header and updates the CSS variable
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const updateHeight = () => {
+      const height = header.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--header-height', `${height}px`);
+    };
+
+    updateHeight();
+
+    const observer = new ResizeObserver(() => {
+      updateHeight();
+    });
+
+    observer.observe(header);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <header className="w-full backdrop-blur-md bg-slate-200/60 font-mono text-slate-800/60 sticky top-0 z-50">
-      {/* HEADER - Title*/}
+    <header
+      ref={headerRef}
+      className="w-full backdrop-blur-md bg-slate-200/60 font-mono text-slate-800/60 sticky top-0 z-50"
+    >
+      {/* HEADER - Title */}
       <div className="w-full py-4 px-6 text-center">
-        <Link href="/" className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 group">
+        <Link
+          href="/"
+          className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 group"
+        >
           <span className="text-xl sm:text-2xl tracking-tight group-hover:text-slate-800 transition-colors">
             David Recuero
           </span>
