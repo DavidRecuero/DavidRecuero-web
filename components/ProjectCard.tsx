@@ -31,7 +31,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       
       {/* Left Column (image/video) */}
       <div 
-        className="md:col-span-5 relative aspect-video rounded-lg overflow-hidden bg-slate-950 group cursor-pointer"
+        className="md:col-span-5 relative aspect-video rounded-lg overflow-hidden group cursor-pointer"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -82,7 +82,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="text-xs px-2 py-1 text-muted font-mono rounded border border-slate-700/50"
+                className="text-xs px-2 py-1 text-muted font-mono rounded border border-text-muted"
               >
                 {tech}
               </span>
@@ -91,13 +91,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Links */}
-        <div className="pt-4 border-t border-slate-800/80 flex items-center gap-4">
+        <div className="pt-4 border-t border-text-primary flex items-center gap-4">
           {project.githubUrl && (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-tertiary text-sm font-mono rounded-lg transition-colors border border-slate-700"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-button-background hover:bg-button-background-hovered text-tertiary text-sm font-mono rounded-lg transition-colors"
             >
               <span>GitHub</span>
             </a>
@@ -108,7 +108,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.storeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-tertiary text-sm font-mono rounded-lg transition-colors border border-slate-700"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-button-background hover:bg-button-background-hovered text-tertiary text-sm font-mono rounded-lg transition-colors"
             >
               <span>Store</span>
             </a>

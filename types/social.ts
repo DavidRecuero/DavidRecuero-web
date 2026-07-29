@@ -4,7 +4,7 @@ export interface SocialLinkData {
   id: string;
   name: string;
   url: string;
+  user: string;
   icon: ReactNode;
   iconColorClass: string;
-  hoverTextClass: string;
 }

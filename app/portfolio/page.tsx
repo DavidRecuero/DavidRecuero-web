@@ -6,7 +6,6 @@ import ProjectCard from '../../components/ProjectCard';
 
 type SectionId = 'my-code' | 'commercial';
 
-// Definimos las secciones fuera del componente para mantenerlo limpio
 const portfolioSections: { id: SectionId; label: string }[] = [
   { id: 'my-code', label: 'My Code' },
   { id: 'commercial', label: 'Commercial Products' },
@@ -54,11 +53,11 @@ export default function PortfolioPage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-200 pb-20">
+    <main className="min-h-screen background pb-20">
       
       {/* SECTIONS BAR */}
       <nav 
-        className="sticky z-40 w-full bg-slate-200/60 backdrop-blur-md border-y border-slate-300/60 py-1 transition-all top-[var(--header-height,64px)] font-mono text-slate-800/60"
+        className="sticky z-40 w-full bg-background/60 backdrop-blur-md border-y border-tertiary/60 py-1 transition-all top-[var(--header-height,64px)] font-mono text-primary/60"
       >
         <ul className="max-w-4xl mx-auto px-4 flex justify-center gap-12 text-center text-xs">
           {portfolioSections.map((section) => (
@@ -68,8 +67,8 @@ export default function PortfolioPage() {
                 onClick={() => scrollToSection(section.id)}
                 className={`inline-block py-1 transition-colors border-b ${
                   activeSection === section.id
-                    ? 'border-slate-400 text-slate-800'
-                    : 'border-transparent hover:text-slate-800'
+                    ? 'border-tertiary/60 hover:text-primary'
+                    : 'border-transparent hover:text-primary'
                 }`}
               >
                 {section.label}

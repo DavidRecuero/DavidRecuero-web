@@ -2,37 +2,54 @@
 
 :root {
   --background: #e2e8f0;
-  --foreground: #1e293b;
+  --button-background: #1e293b;
+  --button-background-hovered: #334155;
+  --input-background: #f8fafc;
 
   --text-primary: #1e293b;
   --text-secondary: #475569;
-  --text-tertiary: #ffffff;
+  --text-tertiary: #94A3B8;
+  --text-quaternary: #ffffff;
   --text-muted: #64748b;
-  --text-accent: #4f46e5;
+  --text-accent: #065f46;
+  --text-input: #04044b;
+
+  --available-primary: #065f46;
+  --available-secondary: #10b981;
 }
 
 @media (prefers-color-scheme: dark) { /* Dark Mode */
   :root {
     --background: #020617;
-    --foreground: #f8fafc;
+    --button-background: #1e293b;
+    --button-background-hovered: #334155; 
+    --input-background: #f8fafc;
 
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --text-tertiary: #ffffff;
     --text-muted: #64748b;
     --text-accent: #6366f1;
+    --text-input: #94a3b8;
   }
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-button-background: var(--button-background);
+  --color-button-background-hovered: var(--button-background-hovered);
+  --color-input-background: var(--input-background);
 
   --color-primary: var(--text-primary);
   --color-secondary: var(--text-secondary);
   --color-tertiary: var(--text-tertiary);
+  --color-quaternary: var(--text-quaternary);
   --color-muted: var(--text-muted);
   --color-accent: var(--text-accent);
+  --color-input: var(--text-input);
+
+  --color-available-primary: var(--available-primary);
+  --color-available-secondary: var(--available-secondary);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { sendEmailAction } from '../actions/sendEmail';
 import { EmailData } from '../types';
+import FormField from './FormField';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState<EmailData>({
@@ -38,91 +39,60 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="shadow-lg p-8 rounded-2xl shadow-lg">
+    <div className="shadow-lg p-8 rounded-2xl">
       <h2 className="text-xl text-primary mb-6">Text me</h2>
 
       {status === 'success' && (
-        <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm">
+        <div className="mb-6 p-4 rounded-xl bg-available-primary/10 border border-available-primary/20 text-accent text-sm">
           ✓ Message sent!
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {/* Name */}
-          <div>
-            <label htmlFor="name" className="block text-xs text-secondary mb-2">
-              Your name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="..."
-              className="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors text-sm"
-            />
-          </div>
-
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-xs text-secondary mb-2">
-              Your mail
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="..."
-              className="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors text-sm"
-            />
-          </div>
-        </div>
-
-        {/* Subject */}
-        <div>
-          <label htmlFor="subject" className="block text-xs text-secondary mb-2">
-            Subject
-          </label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            required
-            value={formData.subject}
+          <FormField
+            label="Your name"
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
-            placeholder="..."
-            className="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors text-sm"
+            required
+          />
+
+          <FormField
+            label="Your mail"
+            id="email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
           />
         </div>
 
-        {/* Message */}
-        <div>
-          <label htmlFor="message" className="block text-xs text-secondary mb-2">
-            Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows={5}
-            required
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="..."
-            className="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors text-sm resize-none"
-          />
-        </div>
+        <FormField
+          label="Subject"
+          id="subject"
+          name="subject"
+          value={formData.subject}
+          onChange={handleChange}
+          required
+        />
 
-        {/* Submit */}
+        <FormField
+          label="Message"
+          id="message"
+          name="message"
+          rows={5}
+          value={formData.message}
+          onChange={handleChange}
+          required
+        />
+
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="w-full py-3.5 px-6 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+          className="w-full py-3.5 px-6 rounded-lg bg-button-background hover:bg-button-background-hovered text-quaternary font-mono text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
         >
           {status === 'loading' ? <span>Sending...</span> : <span>Send message</span>}
         </button>

@@ -33,7 +33,7 @@ export default function Navbar() {
   return (
     <header
       ref={headerRef}
-      className="w-full backdrop-blur-md bg-slate-200/60 font-mono text-slate-800/60 sticky top-0 z-50"
+      className="w-full backdrop-blur-md bg-background/60 font-mono text-primary/60 sticky top-0 z-50"
     >
       {/* HEADER - Title */}
       <div className="w-full py-4 px-6 text-center">
@@ -41,11 +41,11 @@ export default function Navbar() {
           href="/"
           className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 group"
         >
-          <span className="text-xl sm:text-2xl tracking-tight group-hover:text-slate-800 transition-colors">
-            David Recuero
+          <span className="text-xl sm:text-2xl tracking-tight group-hover:text-primary transition-colors">
+            David Recuero Redrado
           </span>
-          <span className="hidden sm:inline text-slate-400/60">|</span>
-          <span className="text-sm text-slate-400/60 tracking-wide">
+          <span className="hidden sm:inline text-tertiary/60">|</span>
+          <span className="text-sm text-tertiary/60 tracking-wide">
             Software Developer
           </span>
         </Link>
@@ -60,8 +60,8 @@ export default function Navbar() {
                 href={link.href}
                 className={`inline-block py-1 transition-colors border-b ${
                   pathname === link.href
-                    ? 'border-slate-400/60 hover:text-slate-800'
-                    : 'border-transparent hover:text-slate-800'
+                    ? 'border-tertiary/60 hover:text-primary'
+                    : 'border-transparent hover:text-primary'
                 }`}
               >
                 {link.label}
