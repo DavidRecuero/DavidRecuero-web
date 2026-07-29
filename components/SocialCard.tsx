@@ -1,4 +1,4 @@
-import { SocialLinkData } from '@/types/social';
+import { SocialLinkData } from '@/types';
 
 interface SocialCardProps {
   social: SocialLinkData;

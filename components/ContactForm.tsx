@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { sendEmailAction } from '../actions/sendEmail';
+import { EmailData } from '../types';
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<EmailData>({
     name: '',
     email: '',
     subject: '',
@@ -20,10 +22,19 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus('loading');
 
-    setTimeout(() => {
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1500);
+    try {
+      const result = await sendEmailAction(formData);
+
+      if (result.success) {
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        console.error(result.error); 
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
   };
 
   return (

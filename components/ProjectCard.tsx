@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { Project } from '@/types/project';
+import { Project } from '@/types';
 
 interface ProjectCardProps {
   project: Project;
