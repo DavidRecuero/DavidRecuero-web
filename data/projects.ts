@@ -1,17 +1,23 @@
-import { Project } from '@/types/project';
+import { Project, SectionId } from '@/types/project';
 
-export const PROJECTS: Project[] = [
+export const portfolioSections: { id: SectionId; label: string }[] = [
+  { id: 'my-code', label: 'My Code' },
+  { id: 'commercial', label: 'Commercial Products' },
+];
+
+export const projects: Project[] = [
   // "MY CODE"
   {
     id: 'portfolio-web',
     title: 'Portafolio Web Full-Stack',
-    role: 'Desarrollador Full-Stack',
+    role: 'Full-Stack Developer',
     description: 'I worked on the development of a full-stack web portfolio, implementing modern technologies and best practices.',
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-    imageSrc: '/projects/portfolio-thumb.jpg',
+    imageSrc: '/pngPlaceholder.png',
     videoSrc: '/placeholderVideo.mp4',
     category: 'my-code',
-    githubUrl: 'https://github.com',
+    url: 'https://github.com',
+    platform: 'github',
   },
   // "COMMERCIAL PRODUCTS"
   {
@@ -21,9 +27,10 @@ export const PROJECTS: Project[] = [
     role: 'QA Engineer / Gameplay Programmer',
     description: 'I worked on the game mechanics, bug fixing, and optimization of the gameplay experience for this commercial game.',
     technologies: ['C#', 'Unity', 'Git'],
-    imageSrc: '/projects/game-thumb.jpg',
+    imageSrc: '/pngPlaceholder.png',
     videoSrc: '/placeholderVideo.mp4',
     category: 'commercial',
-    storeUrl: 'https://store.steampowered.com',
+    url: 'https://store.steampowered.com',
+    platform: 'steam',
   },
 ];

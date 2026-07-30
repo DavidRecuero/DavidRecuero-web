@@ -1,3 +1,6 @@
+export type SectionId = 'my-code' | 'commercial';
+export type PlatformType = 'github' | 'steam';
+
 export interface Project {
   id: string;
   title: string;
@@ -7,7 +10,7 @@ export interface Project {
   technologies: string[];
   imageSrc: string;
   videoSrc: string;
-  category: 'my-code' | 'commercial';
-  githubUrl?: string;                   //Optional, only if code can be shared
-  storeUrl?: string;                    //Optional, only if project is available on a store 
+  category: SectionId;
+  url?: string;                         //Optional, only for projects with a specific platform (e.g., GitHub, Steam)
+  platform?: PlatformType;               
 }

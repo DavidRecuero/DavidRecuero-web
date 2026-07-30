@@ -1,7 +1,10 @@
 'use client';
 
 import { useRef } from 'react';
+import Image from 'next/image';
 import { Project } from '@/types';
+import { LinkButton } from '@/components/LinkButton';
+import { getPlatformInfo } from '@/utils/platform';
 
 interface ProjectCardProps {
   project: Project;
@@ -22,23 +25,25 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const handleMouseLeave = () => {
     if (videoRef.current) {
       videoRef.current.pause();
-      videoRef.current.currentTime = 0; 
+      videoRef.current.currentTime = 0;
     }
   };
 
   return (
     <article className="grid grid-cols-1 md:grid-cols-12 gap-6 rounded-xl p-6 transition-all shadow-lg">
-      
+
       {/* Left Column (image/video) */}
-      <div 
+      <div
         className="md:col-span-5 relative aspect-video rounded-lg overflow-hidden group cursor-pointer"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {/* Static Image */}
-        <img
+        <Image
           src={project.imageSrc}
           alt={project.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 absolute inset-0 z-10"
         />
 
@@ -49,6 +54,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           muted
           loop
           playsInline
+          preload="metadata"
           className="w-full h-full object-cover absolute inset-0 z-0"
         />
       </div>
@@ -91,28 +97,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Links */}
-        <div className="pt-4 border-t border-text-primary flex items-center gap-4">
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-button-background hover:bg-button-background-hovered text-tertiary text-sm font-mono rounded-lg transition-colors"
-            >
-              <span>GitHub</span>
-            </a>
-          )}
+        <div className="pt-4 border-t border-tertiary/25 flex items-center gap-4">
+          {project.url && (() => {
+            const { icon, label } = getPlatformInfo(project.platform);
 
-          {project.storeUrl && (
-            <a
-              href={project.storeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-button-background hover:bg-button-background-hovered text-tertiary text-sm font-mono rounded-lg transition-colors"
-            >
-              <span>Store</span>
-            </a>
-          )}
+            return (
+              <LinkButton href={project.url} icon={icon}>
+                {label}
+              </LinkButton>
+            );
+          })()}
         </div>
       </div>
     </article>

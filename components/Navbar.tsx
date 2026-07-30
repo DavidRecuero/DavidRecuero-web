@@ -33,7 +33,7 @@ export default function Navbar() {
   return (
     <header
       ref={headerRef}
-      className="w-full backdrop-blur-md bg-background/60 font-mono text-primary/60 sticky top-0 z-50"
+      className="w-full backdrop-blur-md bg-background/navbar-transparency font-mono text-primary/navbar-transparency border-b border-tertiary/navbar-border-transparency sticky top-0 z-50"
     >
       {/* HEADER - Title */}
       <div className="w-full py-4 px-6 text-center">
@@ -44,8 +44,8 @@ export default function Navbar() {
           <span className="text-xl sm:text-2xl tracking-tight group-hover:text-primary transition-colors">
             David Recuero Redrado
           </span>
-          <span className="hidden sm:inline text-tertiary/60">|</span>
-          <span className="text-sm text-tertiary/60 tracking-wide">
+          <span className="hidden sm:inline text-tertiary/navbar-transparency">|</span>
+          <span className="text-sm text-tertiary/navbar-transparency tracking-wide">
             Software Developer
           </span>
         </Link>
@@ -60,7 +60,7 @@ export default function Navbar() {
                 href={link.href}
                 className={`inline-block py-1 transition-colors border-b ${
                   pathname === link.href
-                    ? 'border-tertiary/60 hover:text-primary'
+                    ? 'border-tertiary/navbar-transparency hover:text-primary'
                     : 'border-transparent hover:text-primary'
                 }`}
               >
