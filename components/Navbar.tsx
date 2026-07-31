@@ -1,34 +1,17 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { navLinks } from '@/data/data';
+import { navLinks, generalData } from '@/data/data';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useHeaderHeight } from '@/hooks/useHeaderHeight';
 
 export default function Navbar() {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
 
   //Gets the height of the header and updates the CSS variable
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-
-    const updateHeight = () => {
-      const height = header.getBoundingClientRect().height;
-      document.documentElement.style.setProperty('--header-height', `${height}px`);
-    };
-
-    updateHeight();
-
-    const observer = new ResizeObserver(() => {
-      updateHeight();
-    });
-
-    observer.observe(header);
-
-    return () => observer.disconnect();
-  }, []);
+  useHeaderHeight(headerRef);
 
   return (
     <header
@@ -42,11 +25,11 @@ export default function Navbar() {
           className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 group"
         >
           <span className="text-xl sm:text-2xl tracking-tight group-hover:text-primary transition-colors">
-            David Recuero Redrado
+            {generalData.myName}
           </span>
           <span className="hidden sm:inline text-tertiary/navbar-transparency">|</span>
           <span className="text-sm text-tertiary/navbar-transparency tracking-wide">
-            Software Developer
+            {generalData.position}
           </span>
         </Link>
       </div>

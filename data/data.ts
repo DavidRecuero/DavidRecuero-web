@@ -4,6 +4,11 @@ export const navLinks = [
   { href: '/contact', label: 'Contact' },
 ];
 
+export const generalData = {
+  myName: "David Recuero Redrado",
+  position: "Software Developer",
+};
+
 export const experienceData = [
   {
     period: "From 2024",
