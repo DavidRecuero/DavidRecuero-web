@@ -34,6 +34,7 @@ export default function ContactForm() {
         setStatus('error');
       }
     } catch (error) {
+      console.error("Error while sending email:", error);
       setStatus('error');
     }
   };
