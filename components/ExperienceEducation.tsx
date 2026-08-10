@@ -1,4 +1,4 @@
-import { experienceData, educationData } from '@/data/data';
+import { experienceData, educationData } from '@/data/cv';
 import SectionTitle from '@/components/SectionTitle';
 import TimelineItem from '@/components/TimelineItem';
 

@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { navLinks, generalData } from '@/data/data';
+import { useRef } from 'react';
+import { generalData } from '@/data/cv';
+import { navLinks } from '@/data/siteConfig';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useHeaderHeight } from '@/hooks/useHeaderHeight';
