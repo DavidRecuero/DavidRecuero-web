@@ -50,13 +50,20 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Descriptive Video */}
         <video
           ref={videoRef}
-          src={project.videoSrc}
           muted
           loop
           playsInline
           preload="metadata"
           className="w-full h-full object-cover absolute inset-0 z-0"
-        />
+        >
+          {/* If we have a WebM video source */}
+          {project.videoSrcWebm && (
+            <source src={project.videoSrcWebm} type="video/webm" />
+          )}
+          {/* If we have only an MP4 video source */}
+          <source src={project.videoSrcMp4} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
 
       {/* Right Column (project information) */}

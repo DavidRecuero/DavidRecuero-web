@@ -1,5 +1,5 @@
 export type SectionId = 'my-code' | 'commercial';
-export type PlatformType = 'github' | 'steam';
+export type PlatformType = 'github' | 'steam' | 'android' | 'ios' | 'itch' | 'other';
 
 export interface Project {
   id: string;
@@ -9,7 +9,8 @@ export interface Project {
   description: string;
   technologies: string[];
   imageSrc: string;
-  videoSrc: string;
+  videoSrcWebm?: string;
+  videoSrcMp4: string;
   category: SectionId;
   url?: string;                         //Optional, only for projects with a specific platform (e.g., GitHub, Steam)
   platform?: PlatformType;               
