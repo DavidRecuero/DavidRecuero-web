@@ -56,7 +56,7 @@ export default function PortfolioPage() {
   };
 
   return (
-    <main className="min-h-screen background pb-20">
+    <main className="min-h-screen background pb-64">
       
       {/* SECTIONS BAR */}
       <PortfolioNav activeSection={activeSection} onSelectSection={scrollToSection} />

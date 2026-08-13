@@ -4,7 +4,7 @@ import Skills from '@/components/Skills';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background font-mono text-primary px-6 sm:px-12 md:px-24 py-8 max-w-4xl mx-auto">
+    <main className="min-h-screen background font-mono text-primary px-6 sm:px-12 md:px-24 py-8 pb-64 max-w-screen-2xl mx-auto">
       <Hero />
       <ExperienceEducation />
       <Skills />
