@@ -3,13 +3,17 @@ export const generalData = {
   position: "Software Developer",
 };
 
+const videoNames = ['BJ', 'Yahtzee', 'YL', 'YL2', 'ELT'];
+
 export const heroData = {
   companies: "Scopely · Voodoo Games · UPlay",
   title: "Video Game Development, Full-Stack Web, Quality Assurance",
   cvDownloadText: "Download CV (PDF)",
   cvDownloadLink: "/DavidRecuero_Resume.pdf",
-  showreelVideoSrc: "/placeholderVideo.mp4",
-  videoType: "video/mp4",
+  showreelVideos: videoNames.map(name => ({
+    mp4: `videos/${name}.mp4`,
+    webm: `videos/${name}.webm`
+  }))
 };
 
 export const experienceData = [

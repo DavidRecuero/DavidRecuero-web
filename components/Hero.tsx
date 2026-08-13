@@ -1,13 +1,39 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { heroData } from '@/data/cv';
 
 export default function Hero() {
+
+  //Choose the video to play on Home
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  //Choose a random video to play on mount
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * heroData.showreelVideos.length);
+    setCurrentVideoIndex(randomIndex);
+    setMounted(true);
+  }, []);
+
+  const handleVideoEnd = () => {
+    setCurrentVideoIndex((prevIndex) => {
+      if (prevIndex === heroData.showreelVideos.length - 1) {
+        return 0;
+      }
+      return prevIndex + 1;
+    });
+  };
+
+  const currentVideo = heroData.showreelVideos[currentVideoIndex];
+
   return (
     <section className="mb-24 flex flex-col xl:flex-row xl:items-stretch gap-12">
-      
+
       {/* Text Content */}
-      <div className="flex-1">
+      <div className="flex-1 flex flex-col justify-center pb-4">
         {/* Badge Companies */}
-        <div className="w-fit mx-auto px-2 py-2 text-sm text-secondary">
+        <div className="w-fit mx-auto pb-4 text-sm text-secondary">
           {heroData.companies}
         </div>
 
@@ -33,16 +59,26 @@ export default function Hero() {
       </div>
 
       {/* Showreel*/}
-      <div className="w-full xl:w-1/2 aspect-video xl:aspect-auto rounded-2xl overflow-hidden shadow-lg">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover pointer-events-none opacity-90"
-        >
-          <source src={heroData.showreelVideoSrc} type={heroData.videoType} />
-        </video>
+      <div className="w-full xl:w-1/2 aspect-video xl:aspect-auto relative rounded-2xl overflow-hidden shadow-lg bg-black/5">
+        {mounted && (
+          <video
+            key={currentVideoIndex}
+            autoPlay
+            muted
+            playsInline
+            onEnded={handleVideoEnd}
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-90"
+          >
+            {/* First tries with webm */}
+            <source src={currentVideo.webm} type="video/webm" />
+
+            {/* Then mp4 */}
+            <source src={currentVideo.mp4} type="video/mp4" />
+
+            {/* Fallback message */}
+            Your browser does not support the video tag.
+          </video>
+        )}
       </div>
     </section>
   );

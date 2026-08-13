@@ -9,12 +9,13 @@ export const projects: Project[] = [
   // "MY CODE"
   {
     id: 'portfolio-web',
-    title: 'Portafolio Web Full-Stack',
+    title: 'Portfolio Web',
     role: 'Full-Stack Developer',
     description: 'I worked on the development of this full-stack web portfolio, implementing modern technologies and best practices.',
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-    imageSrc: '/pngPlaceholder.png',
-    videoSrcMp4: '/placeholderVideo.mp4',
+    imageSrc: '/images/web.webp',
+    videoSrcWebm: '/videos/web.webm',
+    videoSrcMp4: '/videos/web.mp4',
     category: 'my-code',
     url: 'https://github.com/DavidRecuero/DavidRecuero-web',
     platform: 'github',
