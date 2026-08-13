@@ -1,20 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #e2e8f0;
-  --button-background: #1e293b;
-  --button-background-hovered: #334155;
-  --input-background: #f8fafc;
+  --background: #f1f5f9; 
+  --input-background: #ffffff;
+
+  --button-background: #0f172a; 
+  --button-background-hovered: #334155; 
 
   --text-primary: #1e293b;
   --text-secondary: #475569;
-  --text-tertiary: #94A3B8;
+  --text-tertiary: #94a3b8;
   --text-quaternary: #ffffff;
   --text-muted: #64748b;
-  --text-accent: #065f46;
-  --text-input: #04044b;
+  
+  --text-input: #1e293b; 
+  --text-accent: #059669; 
 
-  --available-primary: #065f46;
+  --available-primary: #059669;
   --available-secondary: #10b981;
 
   --navbar-transparency: 60%;
@@ -24,23 +26,25 @@
 @media (prefers-color-scheme: dark) { /* Dark Mode */
   :root {
     --background: #020617;
-    --button-background: #1e293b;
-    --button-background-hovered: #334155; 
-    --input-background: #f8fafc;
+    --input-background: #0f172a;
+
+    --button-background: #f1f5f9;
+    --button-background-hovered: #cbd5e1;
 
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
-    --text-tertiary: #ffffff;
-    --text-quaternary: #ffffff;
+    --text-tertiary: #475569;
+    --text-quaternary: #020617;
     --text-muted: #64748b;
-    --text-accent: #6366f1;
-    --text-input: #94a3b8;
+    
+    --text-input: #f8fafc;
+    --text-accent: #10b981;
 
-    --available-primary: #065f46;
-    --available-secondary: #10b981;
+    --available-primary: #10b981;
+    --available-secondary: #34d399;
 
     --navbar-transparency: 60%;
-    --navbar-border-transparency: 25%;
+    --navbar-border-transparency: 15%;
   }
 }
 
