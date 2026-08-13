@@ -30,11 +30,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <article className="grid grid-cols-1 md:grid-cols-12 gap-6 rounded-xl p-6 transition-all shadow-lg">
+    <article className="grid grid-cols-1 md:grid-cols-12 md:items-center xl:flex xl:flex-col gap-6 rounded-xl p-6 transition-all shadow-lg">
 
-      {/* Left Column (image/video) */}
+      {/* Top Section (image/video) */}
       <div
-        className="md:col-span-5 relative aspect-video rounded-lg overflow-hidden group cursor-pointer"
+        className="md:col-span-5 xl:w-full relative aspect-video rounded-lg overflow-hidden group cursor-pointer"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -43,7 +43,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           src={project.imageSrc}
           alt={project.title}
           fill
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 40vw, 33vw"
           className="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 absolute inset-0 z-10"
         />
 
@@ -66,27 +66,27 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </video>
       </div>
 
-      {/* Right Column (project information) */}
-      <div className="md:col-span-7 flex flex-col justify-between">
+      {/* Bottom Section (project information) */}
+      <div className="md:col-span-7 xl:w-full flex flex-col justify-between flex-grow">
         <div>
           {/* Project Header / Company*/}
-          <div className="flex justify-between items-start mb-2">
+          <div className="flex justify-between items-start mb-3">
             <div>
-              <h3 className="text-xl font-sans text-primary">{project.title}</h3>
+              <h3 className="text-2xl font-sans text-primary">{project.title}</h3>
               {project.company && (
-                <p className="text-sm font-mono text-accent">
+                <p className="text-sm font-mono text-accent mt-1">
                   {project.company}
                 </p>
               )}
             </div>
             {/* Role*/}
-            <span className="text-xs font-mono pl-8 pr-1.5 py-1 text-secondary">
+            <span className="text-xs font-mono px-2 py-1 text-secondary">
               {project.role}
             </span>
           </div>
 
           {/* Description */}
-          <p className="text-secondary text-sm font-sans mb-4 leading-relaxed">
+          <p className="text-secondary text-sm font-sans mb-5 leading-relaxed">
             {project.description}
           </p>
 
@@ -104,7 +104,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Links */}
-        <div className="pt-4 border-t border-tertiary/25 flex items-center gap-4">
+        <div className="pt-4 border-t border-tertiary/25 flex items-center gap-4 mt-auto">
           {project.url && (() => {
             const { icon, label } = getPlatformInfo(project.platform);
 

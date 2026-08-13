@@ -62,12 +62,12 @@ export default function PortfolioPage() {
       <PortfolioNav activeSection={activeSection} onSelectSection={scrollToSection} />
 
       {/* PROJECTS CONTENT */}
-      <div className="max-w-5xl mx-auto px-4 mt-4 space-y-4">
+      <div className="max-w-screen-2xl mx-auto px-4 mt-8 space-y-16">
           {projectsBySection.map((section) => (
               <section 
                 key={section.id}
                 id={section.id} 
-                className="space-y-6"
+                className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-8"
                 style={{ scrollMarginTop: 'calc(var(--header-height, 64px) + 80px)' }}
               >
                 {section.projects.map((project) => (

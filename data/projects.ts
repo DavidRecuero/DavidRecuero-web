@@ -1,8 +1,8 @@
 import { Project, SectionId } from '@/types/project';
 
 export const portfolioSections: { id: SectionId; label: string }[] = [
-  { id: 'my-code', label: 'My Code' },
   { id: 'commercial', label: 'Commercial Products' },
+  { id: 'my-code', label: 'My Code' },
 ];
 
 export const projects: Project[] = [
