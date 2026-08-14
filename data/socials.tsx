@@ -5,7 +5,7 @@ export const socialLinks: SocialLinkData[] = [
     id: 'linkedin',
     name: 'LinkedIn',
     user: '@davidrecuero',
-    url: 'https://linkedin.com',
+    url: 'https://linkedin.com/in/drecuero',
     iconColorClass: 'fill-cyan-400',
     icon: (
       <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -17,7 +17,7 @@ export const socialLinks: SocialLinkData[] = [
     id: 'github',
     name: 'GitHub',
     user: '@davidrecuero',
-    url: 'https://github.com',
+    url: 'https://github.com/DavidRecuero',
     iconColorClass: 'fill-slate-200',
     icon: (
       <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@ export const socialLinks: SocialLinkData[] = [
     id: 'gitlab',
     name: 'GitLab',
     user: '@davidrecuero',
-    url: 'https://gitlab.com',
+    url: 'https://gitlab.com/DavidRecuero',
     iconColorClass: 'fill-orange-400',
     icon: (
       <svg className="w-5 h-5" viewBox="0 0 24 24">
