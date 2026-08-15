@@ -33,12 +33,12 @@ export default function Hero() {
       {/* Text Content */}
       <div className="flex-1 flex flex-col justify-center pb-4 items-center sm:items-start text-center sm:text-left">
         {/* Badge Companies */}
-        <div className="w-fit mx-auto pb-4 text-sm text-secondary">
+        <div className="w-fit mx-auto pb-6 text-sm text-secondary">
           {heroData.companies}
         </div>
 
         {/* Hero Title */}
-        <h1 className="text-balance text-2xl sm:text-4xl md:text-5xl tracking-tight text-primary leading-none mb-8">
+        <h1 className="text-balance text-3xl sm:text-4xl md:text-5xl tracking-tight text-primary leading-none mb-8">
           {heroData.title.map((line, index) => (
             <span key={index} className="block">
               {line}
