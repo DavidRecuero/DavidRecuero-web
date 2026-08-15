@@ -5,7 +5,7 @@ import { socialLinks } from '@/data/socials';
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen background text-primary py-16 px-6 lg:px-12 font-mono">
+    <main className="min-h-screen background text-primary pt-6 lg:pt-12 pb-32 px-6 lg:px-12 font-mono">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
