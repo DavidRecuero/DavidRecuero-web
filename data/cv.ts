@@ -7,7 +7,11 @@ const videoNames = ['BJ', 'Yahtzee', 'YL', 'YL2', 'ELT'];
 
 export const heroData = {
   companies: "Scopely · Voodoo Games · UPlay",
-  title: "Video Game Development, Full-Stack Web, Quality Assurance",
+  title: [
+    "Video Game Development,",
+    "Full\u2011Stack Web,",
+    "Quality Assurance"
+  ],
   cvDownloadText: "Download CV (PDF)",
   cvDownloadLink: "/DavidRecuero_Resume.pdf",
   showreelVideos: videoNames.map(name => ({
