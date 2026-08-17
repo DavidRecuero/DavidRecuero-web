@@ -1,20 +1,21 @@
-import { GithubIcon, AndroidIcon, AppleIcon, ItchioIcon, OtherIcon, SteamIcon } from '@/components/IconsSVG';
 import { PlatformType } from '@/types/project';
+import { FaGlobe } from "react-icons/fa";
+import { SiItchdotio, SiGithub, SiSteam, SiAndroid, SiApple } from "react-icons/si";
 
 export function getPlatformInfo(platform?: PlatformType) {
   switch (platform) {
     case 'github':
-      return { icon: <GithubIcon />, label: 'GitHub' };
+      return { icon: <SiGithub />, label: 'GitHub' };
     case 'steam':
-      return { icon: <SteamIcon />, label: 'Store' };
+      return { icon: <SiSteam/>, label: 'Store' };
     case 'android':
-      return { icon: <AndroidIcon />, label: 'Android' };
+      return { icon: <SiAndroid />, label: 'Android' };
     case 'ios':
-      return { icon: <AppleIcon />, label: 'iOS' };
+      return { icon: <SiApple />, label: 'iOS' };
     case 'itch':
-      return { icon: <ItchioIcon />, label: 'Itch.io' };
+      return { icon: <SiItchdotio />, label: 'Itch.io' };
     case 'other':
-      return { icon: <OtherIcon />, label: 'Project' };
+      return { icon: <FaGlobe />, label: 'Project' };
     default:
       return { icon: null, label: 'See Project' };
   }

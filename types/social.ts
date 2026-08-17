@@ -6,5 +6,4 @@ export interface SocialLinkData {
   url: string;
   user: string;
   icon: ReactNode;
-  iconColorClass: string;
 }
