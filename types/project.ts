@@ -1,5 +1,5 @@
 export type SectionId = 'my-code' | 'commercial';
-export type PlatformType = 'github' | 'steam' | 'android' | 'ios' | 'itch' | 'other';
+export type PlatformType = 'github' | 'steam' | 'android' | 'ios' | 'itch' | 'switch' | 'ps' | 'xbox' | 'pc' | 'mac' |  'other';
 
 export interface Project {
   id: string;
@@ -13,5 +13,6 @@ export interface Project {
   videoSrcMp4: string;
   category: SectionId;
   url?: string;                         //Optional, only for projects with a specific platform (e.g., GitHub, Steam)
-  platform?: PlatformType;               
+  platformUrl?: PlatformType;           //Optional, platform of the provided link    
+  platforms: PlatformType[];            //Platforms where the game was published
 }

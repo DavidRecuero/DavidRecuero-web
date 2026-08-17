@@ -18,7 +18,8 @@ export const projects: Project[] = [
     videoSrcMp4: '/videos/web.mp4',
     category: 'my-code',
     url: 'https://github.com/DavidRecuero/DavidRecuero-web',
-    platform: 'github',
+    platformUrl: 'github',
+    platforms: ['other'],
   },
   // "COMMERCIAL PRODUCTS"
   {
@@ -33,7 +34,8 @@ export const projects: Project[] = [
     videoSrcMp4: '/videos/YL.mp4',
     category: 'commercial',
     url: 'https://store.steampowered.com/app/428690/Youtubers_Life',
-    platform: 'steam',
+    platformUrl: 'steam',
+    platforms: ['android', 'ios', 'pc', 'mac', 'switch', 'ps', 'xbox'],
   },
   {
     id: 'game-yl2',
@@ -47,7 +49,8 @@ export const projects: Project[] = [
     videoSrcMp4: '/videos/YL2.mp4',
     category: 'commercial',
     url: 'https://store.steampowered.com/app/1493760/Youtubers_Life_2',
-    platform: 'steam',
+    platformUrl: 'steam',
+    platforms: ['android', 'ios', 'pc', 'mac', 'switch', 'ps', 'xbox'],
   },
   {
     id: 'game-elt',
@@ -61,7 +64,8 @@ export const projects: Project[] = [
     videoSrcMp4: '/videos/ELT.mp4',
     category: 'commercial',
     url: 'https://store.steampowered.com/app/897410/eSports_Life_Tycoon',
-    platform: 'steam',
+    platformUrl: 'steam',
+    platforms: ['android', 'ios', 'pc', 'mac', 'switch', 'ps', 'xbox'],
   },
   {
     id: 'game-dice',
@@ -75,7 +79,8 @@ export const projects: Project[] = [
     videoSrcMp4: '/videos/Dice.mp4',
     category: 'commercial',
     url: 'https://www.scopely.com/en/games/dice-with-buddies',
-    platform: 'other',
+    platformUrl: 'other',
+    platforms: ['android', 'ios'],
   },
   {
     id: 'game-yahtzee',
@@ -89,7 +94,8 @@ export const projects: Project[] = [
     videoSrcMp4: '/videos/Yahtzee.mp4',
     category: 'commercial',
     url: 'https://www.scopely.com/en/games/yahtzee-with-buddies',
-    platform: 'other',
+    platformUrl: 'other',
+    platforms: ['android', 'ios'],
   },
   {
     id: 'game-yahtzee-web',
@@ -103,7 +109,8 @@ export const projects: Project[] = [
     videoSrcMp4: '/videos/YahtzeeWeb.mp4',
     category: 'commercial',
     url: 'https://playyahtzee.com/',
-    platform: 'other',
+    platformUrl: 'other',
+    platforms: ['other'],
   },
   {
     id: 'game-block-jam',
@@ -117,6 +124,7 @@ export const projects: Project[] = [
     videoSrcMp4: '/videos/BJ.mp4',
     category: 'commercial',
     url: 'https://play.google.com/store/apps/details?id=com.partyup.blockjam&hl=es',
-    platform: 'android',
+    platformUrl: 'android',
+    platforms: ['android', 'ios', 'switch'],
   },
 ];

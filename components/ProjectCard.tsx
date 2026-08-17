@@ -85,6 +85,20 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </span>
           </div>
 
+          {/* Platform */}
+          {project.platforms && project.platforms.length > 0 && (
+            <div className="flex flex-wrap items-center gap-3 mb-5 text-xl text-secondary">
+              {project.platforms.map((plat) => {
+                const { icon } = getPlatformInfo(plat);
+                return (
+                  <div key={plat}>
+                    {icon}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
           {/* Description */}
           <p className="text-secondary text-sm font-sans mb-5 leading-relaxed">
             {project.description}
@@ -106,7 +120,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Links */}
         <div className="pt-4 border-t border-tertiary/25 flex items-center gap-4 mt-auto">
           {project.url && (() => {
-            const { icon, label } = getPlatformInfo(project.platform);
+            const { icon, label } = getPlatformInfo(project.platformUrl);
 
             return (
               <LinkButton href={project.url} icon={icon}>
