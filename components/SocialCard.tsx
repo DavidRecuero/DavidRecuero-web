@@ -4,7 +4,7 @@ interface SocialCardProps {
   social: SocialLinkData;
 }
 
-export default function SocialCard({ name, url, user, icon, iconColorClass}: SocialLinkData) {
+export default function SocialCard({ name, url, user, icon}: SocialLinkData) {
   return (
     <a
       href={url}
@@ -13,7 +13,7 @@ export default function SocialCard({ name, url, user, icon, iconColorClass}: Soc
       className="flex items-center justify-between p-4 rounded-xl bg-button-background hover:bg-button-background-hovered transition-all group"
     >
       <div className="flex items-center gap-3">
-        <div className={iconColorClass}>
+        <div>
           {icon}
         </div>
         <div>
