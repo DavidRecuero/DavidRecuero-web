@@ -12,7 +12,7 @@ export interface Project {
   videoSrcWebm?: string;
   videoSrcMp4: string;
   category: SectionId;
-  url?: string;                         //Optional, only for projects with a specific platform (e.g., GitHub, Steam)
-  platformUrl?: PlatformType;           //Optional, platform of the provided link    
+  url?: string[];                       //Optional, only for projects with a specific platform (e.g., GitHub, Steam)
+  platformUrl?: PlatformType[];         //Optional, platform of the provided link    
   platforms: PlatformType[];            //Platforms where the game was published
 }

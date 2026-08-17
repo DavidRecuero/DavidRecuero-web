@@ -119,15 +119,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Links */}
         <div className="pt-4 border-t border-tertiary/25 flex items-center gap-4 mt-auto">
-          {project.url && (() => {
-            const { icon, label } = getPlatformInfo(project.platformUrl);
+          {project.url?.map((link, index) => {
+            const platform = project.platformUrl?.[index];
+            const { icon, label } = getPlatformInfo(platform);
 
             return (
-              <LinkButton href={project.url} icon={icon}>
+              <LinkButton key={link} href={link} icon={icon}>
                 {label}
               </LinkButton>
             );
-          })()}
+          })}
         </div>
       </div>
     </article>
