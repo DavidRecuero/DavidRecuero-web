@@ -21,6 +21,22 @@ export const projects: Project[] = [
     platformUrl: ['github'],
     platforms: ['other'],
   },
+  {
+    id: 'mygame-wdyra',
+    title: 'Why Did You Run Away?',
+    role: 'Solo Developer',
+    description: 'The first small game I ever coded after learning how to program.',
+    technologies: ['Löve', 'Lua'],
+    imageSrc: '/images/WDYRA.webp',
+    videoSrcWebm: '/videos/WDYRA.webm',
+    videoSrcMp4: '/videos/WDYRA.mp4',
+    category: 'my-code',
+    url: ['https://davidrecuero.itch.io/why-did-you-run-away',
+      'https://github.com/DavidRecuero/WhyDidYouRunAway'],
+    platformUrl: ['itch',
+      'github'],
+    platforms: ['pc', 'mac'],
+  },
   // "COMMERCIAL PRODUCTS"
   {
     id: 'game-yl1',
