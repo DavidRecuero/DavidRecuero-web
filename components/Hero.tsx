@@ -29,7 +29,7 @@ export default function Hero() {
   const currentVideo = heroData.showreelVideos[currentVideoIndex];
 
   return (
-    <section className="mb-24 flex flex-col xl:flex-row xl:items-stretch gap-12">
+    <section data-testid="hero-section" className="mb-24 flex flex-col xl:flex-row xl:items-stretch gap-12">
 
       {/* Text Content */}
       <div className="flex-1 flex flex-col justify-center pb-4 items-center sm:items-start text-center sm:text-left">
