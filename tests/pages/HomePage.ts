@@ -18,4 +18,9 @@ export class HomePage {
   async goto() {
     await this.page.goto('http://localhost:3000');
   }
+
+  async clickNavLink(linkText: string, expectedPath: string) {
+    await this.page.getByRole('navigation').getByRole('link', { name: linkText }).click();
+    await this.page.waitForURL(`**${expectedPath}`);
+  }
 }
