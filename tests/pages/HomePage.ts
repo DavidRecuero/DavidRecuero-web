@@ -6,6 +6,7 @@ export class HomePage {
   readonly heroContainer: Locator;
   readonly experienceEducationContainer: Locator;
   readonly skillsContainer: Locator;
+  readonly cvButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -13,6 +14,7 @@ export class HomePage {
     this.heroContainer = page.getByTestId('hero-section');
     this.experienceEducationContainer = page.getByTestId('experience-education-section');
     this.skillsContainer = page.getByTestId('skills-section');
+    this.cvButton = page.locator('a[href*=".pdf"], a[href*="cv"]');
   }
 
   async goto() {
