@@ -7,6 +7,12 @@ import { EmailData } from '../types';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmailAction(data: EmailData) {
+
+  //Mock for E2E testing purposes
+  if (process.env.NODE_ENV === 'test' || process.env.NEXT_PUBLIC_E2E_TEST === 'true') {
+    return { success: true };
+  }
+
   try {
     // Mail to receive from the contact form
     const { error } = await resend.emails.send({
