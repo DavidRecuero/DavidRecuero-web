@@ -4,7 +4,7 @@ import TimelineItem from '@/components/TimelineItem';
 
 export default function ExperienceEducation() {
   return (
-    <section className="mb-20">
+    <section data-testid="experience-education-section" className="mb-20">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
         
         {/* Experience */}
