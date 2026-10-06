@@ -17,13 +17,13 @@ export const socialLinks: SocialLinkData[] = [
     url: 'https://github.com/DavidRecuero',
     icon: <SiGithub color="#e2e8f0" className="w-5 h-5" />
   },
-  {
+  /*{
     id: 'gitlab',
     name: 'GitLab',
     user: '@davidrecuero',
     url: 'https://gitlab.com/DavidRecuero',
     icon: <SiGitlab color="#fc6d26" className="w-5 h-5" />
-  },
+  },*/
   {
     id: 'itch.io',
     name: 'itch.io',
