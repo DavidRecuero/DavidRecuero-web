@@ -12,18 +12,12 @@ export class PortfolioPage {
     this.navContainer = page.getByRole('navigation');
     this.commercialSection = page.locator('section#commercial');
     this.myCodeSection = page.locator('section#my-code');
-    this.projectCards = page.locator('article');
+    this.projectCards = page.getByTestId('project-card');
   }
 
   async goto() {
-  await this.page.goto('/portfolio', { waitUntil: 'domcontentloaded' });
-
-  // Wait for the React props to be attached to the navigation button before proceeding
-  await this.page.waitForFunction(() => {
-    const btn = document.querySelector('main nav button');
-    return !!btn && Object.keys(btn).some((k) => k.startsWith('__reactProps$'));
-  });
-}
+    await this.page.goto('/portfolio', { waitUntil: 'networkidle' });
+  }
 
   async clickSectionNav(label: string) {
     await this.navContainer.getByRole('button', { name: label }).click();
@@ -36,7 +30,7 @@ export class PortfolioPage {
   }
 
   getProjectMediaContainer(title: string): Locator {
-    return this.getProjectCard(title).locator('div').first();
+    return this.getProjectCard(title).getByTestId('project-media');
   }
 
   getProjectVideo(title: string): Locator {

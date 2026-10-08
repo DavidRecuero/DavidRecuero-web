@@ -14,7 +14,7 @@ export class ContactPage {
   constructor(page: Page) {
     this.page = page;
     this.availabilityBadge = page.locator('div').filter({ hasText: 'Available for new opportunities' }).first();
-    this.socialCards = page.locator('a[target="_blank"]');
+    this.socialCards = page.getByTestId('social-card');
     
     this.nameInput = page.locator('input#name');
     this.emailInput = page.locator('input#email');

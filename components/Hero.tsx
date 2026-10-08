@@ -53,6 +53,7 @@ export default function Hero() {
             href={heroData.cvDownloadLink}
             target="_blank"
             rel="noopener noreferrer"
+            data-testid="cv-download-button"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-button-background text-quaternary font-sans rounded-lg hover:bg-button-background-hovered transition-colors"
           >
             <TbFileCv className="w-5 h-5" />

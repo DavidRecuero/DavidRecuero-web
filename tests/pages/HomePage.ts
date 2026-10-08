@@ -14,7 +14,7 @@ export class HomePage {
     this.heroContainer = page.getByTestId('hero-section');
     this.experienceEducationContainer = page.getByTestId('experience-education-section');
     this.skillsContainer = page.getByTestId('skills-section');
-    this.cvButton = page.locator('a[href*=".pdf"], a[href*="cv"]');
+    this.cvButton = page.getByTestId('cv-download-button');
   }
 
   async goto() {

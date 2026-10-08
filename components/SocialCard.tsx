@@ -8,6 +8,7 @@ export default function SocialCard({ name, url, user, icon}: SocialLinkData) {
   return (
     <a
       href={url}
+      data-testid="social-card"
       target="_blank"
       rel="noopener noreferrer"
       className="flex items-center justify-between p-4 rounded-xl bg-button-background hover:bg-button-background-hovered transition-all group"

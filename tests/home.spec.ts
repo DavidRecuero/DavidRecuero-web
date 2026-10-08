@@ -17,24 +17,24 @@ test.describe('HomePage', () => {
   });
 
   test('should navigate to Portfolio section', async ({ page }) => {
-    await homePage.clickNavLink('Portfolio', '/portfolio'); 
+    await homePage.clickNavLink('Portfolio', '/portfolio');
     await expect(page).toHaveURL(/.*\/portfolio/);
   });
 
   test('should navigate to Contact section', async ({ page }) => {
-    await homePage.clickNavLink('Contact', '/contact'); 
+    await homePage.clickNavLink('Contact', '/contact');
     await expect(page).toHaveURL(/.*\/contact/);
   });
 
   test('should have a valid CV download link configured', async () => {
-  // Verifies that the CV button is visible
-  await expect(homePage.cvButton).toBeVisible();
+    // Verifies that the CV button is visible
+    await expect(homePage.cvButton).toBeVisible();
 
-  // Verifires that it points to a pdf file
-  await expect(homePage.cvButton).toHaveAttribute('href', /.*\.pdf/i);
+    // Verifires that it points to a pdf file
+    await expect(homePage.cvButton).toHaveAttribute('href', /.*\.pdf/i);
 
-  // Verifies that the link opens in a new tab
-  await expect(homePage.cvButton).toHaveAttribute('target', '_blank');
-  await expect(homePage.cvButton).toHaveAttribute('rel', 'noopener noreferrer');
+    // Verifies that the link opens in a new tab
+    await expect(homePage.cvButton).toHaveAttribute('target', '_blank');
+    await expect(homePage.cvButton).toHaveAttribute('rel', 'noopener noreferrer');
   });
 });
