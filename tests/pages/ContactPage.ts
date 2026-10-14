@@ -13,7 +13,7 @@ export class ContactPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.availabilityBadge = page.locator('div').filter({ hasText: 'Available for new opportunities' }).first();
+    this.availabilityBadge = page.getByTestId('availability-badge');
     this.socialCards = page.getByTestId('social-card');
     
     this.nameInput = page.locator('input#name');
