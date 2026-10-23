@@ -70,10 +70,13 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
+  /* Build and start a production server with the email mock enabled */
   webServer: {
     command: 'npm run build && npm run start',
     url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
+    /* Never reuse a running server (e.g. `npm run dev`): it wouldn't have E2E_MOCK_EMAIL and would send real emails */
+    reuseExistingServer: false,
+    /* Server-only flag read by actions/sendEmail.ts to skip Resend during E2E runs */
+    env: { E2E_MOCK_EMAIL: 'true' },
   },
 });
