@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class PortfolioPage {
   readonly page: Page;
@@ -16,7 +16,12 @@ export class PortfolioPage {
   }
 
   async goto() {
-    await this.page.goto('/portfolio', { waitUntil: 'networkidle' });
+    await this.page.goto('/portfolio', { waitUntil: 'domcontentloaded' });
+    await expect(this.projectCards.first()).toBeVisible();
+    
+    await this.page.waitForFunction(
+      () => document.documentElement.style.getPropertyValue('--header-height') !== ''
+    );
   }
 
   async clickSectionNav(label: string) {
