@@ -55,9 +55,7 @@ test.describe('ContactPage', () => {
     await expect(contactPage.successBanner).toBeHidden();
   });
 
-  test('should submit contact form successfully and display feedback', async ({ browserName }) => {
-    test.skip(browserName === 'webkit', 'media not reliable on webkit');
-
+  test('should submit contact form successfully and display feedback', async () => {
     await contactPage.fillForm(validFormData);
     await contactPage.submitButton.click();
 

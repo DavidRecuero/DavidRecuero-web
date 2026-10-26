@@ -1,31 +1,32 @@
 import { Page, Locator, expect } from '@playwright/test';
+import { SectionId } from '../../types/project';
 
 export class PortfolioPage {
   readonly page: Page;
-  readonly navContainer: Locator;
-  readonly commercialSection: Locator;
-  readonly myCodeSection: Locator;
+  readonly sectionNav: Locator;
   readonly projectCards: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.navContainer = page.getByRole('navigation');
-    this.commercialSection = page.locator('section#commercial');
-    this.myCodeSection = page.locator('section#my-code');
+    this.sectionNav = page.getByRole('navigation', { name: 'Portfolio sections' });
     this.projectCards = page.getByTestId('project-card');
   }
 
   async goto() {
     await this.page.goto('/portfolio', { waitUntil: 'domcontentloaded' });
     await expect(this.projectCards.first()).toBeVisible();
-    
+
     await this.page.waitForFunction(
       () => document.documentElement.style.getPropertyValue('--header-height') !== ''
     );
   }
 
-  async clickSectionNav(label: string) {
-    await this.navContainer.getByRole('button', { name: label }).click();
+  getSection(id: SectionId): Locator {
+    return this.page.locator(`section#${id}`);
+  }
+
+  getSectionNavButton(label: string): Locator {
+    return this.sectionNav.getByRole('button', { name: label, exact: true });
   }
 
   getProjectCard(title: string): Locator {

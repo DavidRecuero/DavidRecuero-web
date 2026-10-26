@@ -10,30 +10,44 @@ test.describe('PortfolioPage', () => {
     await portfolioPage.goto();
   });
 
-  test('should display all sections and render every project card dynamically', async () => {
-    // Verify that all sections are visible
-    for (const section of portfolioSections) {
-      const sectionLocator = portfolioPage.page.locator(`section#${section.id}`);
-      await expect(sectionLocator).toBeVisible();
-    }
-
-    // Verify that the count of <article> elements in the DOM matches the projects array
+  test('should render every project card inside its own section', async () => {
+    // Total count matches the source of truth
     await expect(portfolioPage.projectCards).toHaveCount(projects.length);
 
-    // Verify that each individual project from the data is visible
-    for (const project of projects) {
-      await expect(portfolioPage.getProjectCard(project.title)).toBeVisible();
+    for (const section of portfolioSections) {
+      const sectionLocator = portfolioPage.getSection(section.id);
+      const expected = projects.filter((p) => p.category === section.id);
+
+      await expect(sectionLocator).toBeVisible();
+
+      // Each section holds exactly its own projects
+      await expect
+        .soft(sectionLocator.getByTestId('project-card'), section.id)
+        .toHaveCount(expected.length);
+
+      for (const project of expected) {
+        await expect
+          .soft(sectionLocator.getByRole('heading', { level: 3, name: project.title, exact: true }), project.title)
+          .toBeVisible();
+      }
     }
   });
 
-  test('should navigate between sections via PortfolioNav', async () => {
-    // Click on My Code button
-    await portfolioPage.clickSectionNav('My Code');
+  test('should scroll to each section via PortfolioNav and mark it as current', async () => {
+    // Reverse order so every click moves the page (the first section is already on screen)
+    for (const section of [...portfolioSections].reverse()) {
+      await test.step(section.label, async () => {
+        const button = portfolioPage.getSectionNavButton(section.label);
+        await button.click();
 
-    // Verify that the My Code section is in the viewport
-    await expect(portfolioPage.myCodeSection).toBeInViewport();
+        await expect(portfolioPage.getSection(section.id)).toBeInViewport();
+        await expect(button).toHaveAttribute('aria-current', 'true');
+
+        // Only one section can be current at a time
+        await expect(portfolioPage.sectionNav.locator('[aria-current="true"]')).toHaveCount(1);
+      });
+    }
   });
-
 
   test('should manage video playback lifecycle during hover and mouse leave', { tag: '@real-media' }, async () => {
     const cardTitle = 'Portfolio Web';
@@ -103,19 +117,17 @@ test.describe('PortfolioPage', () => {
 
   test('should verify secure external links for every project in data', async () => {
     for (const project of projects) {
-      // Ignore projects without URLs
-      if (!project.url || project.url.length === 0) continue;
-
       const card = portfolioPage.getProjectCard(project.title);
+      const urls = project.url ?? [];
 
-      for (const url of project.url) {
-        // Locate the link within the project card
+      // No stray or missing links in the card
+      await expect.soft(card.getByRole('link'), project.title).toHaveCount(urls.length);
+
+      for (const url of urls) {
         const link = card.locator(`a[href="${url}"]`);
-
-        // DOM validations
-        await expect(link).toBeVisible();
-        await expect(link).toHaveAttribute('target', '_blank');
-        await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+        await expect.soft(link, `${project.title} → ${url}`).toBeVisible();
+        await expect.soft(link, `${project.title} → ${url}`).toHaveAttribute('target', '_blank');
+        await expect.soft(link, `${project.title} → ${url}`).toHaveAttribute('rel', 'noopener noreferrer');
       }
     }
   });
