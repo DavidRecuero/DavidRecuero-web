@@ -31,6 +31,10 @@ export class ContactPage {
 
   async goto() {
     await this.page.goto('/contact');
+
+    await this.page.waitForFunction(
+      () => document.documentElement.style.getPropertyValue('--header-height') !== ''
+    );
   }
 
   async fillForm(data: { name: string; email: string; subject: string; message: string }) {

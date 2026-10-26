@@ -42,4 +42,11 @@ export class PortfolioPage {
   getProjectVideo(title: string): Locator {
     return this.getProjectCard(title).locator('video');
   }
+
+  /** Moves the mouse onto the card title, outside the media container */
+  async leaveProjectMedia(title: string) {
+    await this.getProjectCard(title)
+      .getByRole('heading', { level: 3, name: title, exact: true })
+      .hover();
+  }
 }

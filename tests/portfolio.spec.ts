@@ -2,6 +2,9 @@ import { test, expect } from '@playwright/test';
 import { PortfolioPage } from './pages/PortfolioPage';
 import { projects, portfolioSections } from '../data/projects';
 
+// Project whose card video is used in the media tests
+const VIDEO_PROJECT = 'Portfolio Web';
+
 test.describe('PortfolioPage', () => {
   let portfolioPage: PortfolioPage;
 
@@ -49,37 +52,12 @@ test.describe('PortfolioPage', () => {
     }
   });
 
-  test('should manage video playback lifecycle during hover and mouse leave', { tag: '@real-media' }, async () => {
-    const cardTitle = 'Portfolio Web';
-    const mediaContainer = portfolioPage.getProjectMediaContainer(cardTitle);
-    const videoLocator = portfolioPage.getProjectVideo(cardTitle);
-
-    // Verify that the video exists
-    await expect(videoLocator).toBeAttached();
-
-    // 1. Hover over the media container to play the video
-    await mediaContainer.hover();
-    await expect
-      .poll(() => videoLocator.evaluate((v: HTMLVideoElement) => !v.paused))
-      .toBe(true);
-
-    // 2. Move the mouse away from the media container to pause and reset the video
-    await portfolioPage
-      .getProjectCard(cardTitle)
-      .getByRole('heading', { level: 3, name: cardTitle, exact: true })
-      .hover();
-    await expect
-      .poll(() => videoLocator.evaluate((v: HTMLVideoElement) => v.paused && v.currentTime === 0))
-      .toBe(true);
-  });
-
-  test('should play on hover and pause + reset on mouse leave', async () => {
-    const cardTitle = 'Portfolio Web';
+  test('should call play on hover and pause + reset on mouse leave', async () => {
     const { page } = portfolioPage;
-    const mediaContainer = portfolioPage.getProjectMediaContainer(cardTitle);
-    const videoLocator = portfolioPage.getProjectVideo(cardTitle);
+    const videoLocator = portfolioPage.getProjectVideo(VIDEO_PROJECT);
 
-    // Spy on the video element to intercept play, pause, and currentTime calls
+    // Spy on the media API: tests the component logic without decoding real video,
+    // so it runs on every browser (WebKit included)
     await videoLocator.evaluate((video: HTMLVideoElement) => {
       const calls: string[] = [];
       (window as unknown as { __mediaCalls: string[] }).__mediaCalls = calls;
@@ -104,16 +82,34 @@ test.describe('PortfolioPage', () => {
       page.evaluate(() => (window as unknown as { __mediaCalls: string[] }).__mediaCalls);
 
     // 1. Hover: should play the video
-    await mediaContainer.hover();
+    await portfolioPage.getProjectMediaContainer(VIDEO_PROJECT).hover();
     await expect.poll(getCalls).toEqual(['play']);
 
     // 2. Mouse leave: should pause and reset the video
-    await portfolioPage
-      .getProjectCard(cardTitle)
-      .getByRole('heading', { level: 3, name: cardTitle, exact: true })
-      .hover();
+    await portfolioPage.leaveProjectMedia(VIDEO_PROJECT);
     await expect.poll(getCalls).toEqual(['play', 'pause', 'currentTime=0']);
   });
+
+  test(
+    'should really play the video on hover and stop it on mouse leave',
+    { tag: '@real-media' },
+    async () => {
+      const videoLocator = portfolioPage.getProjectVideo(VIDEO_PROJECT);
+      await expect(videoLocator).toBeAttached();
+
+      // 1. Hover: the video plays and actually advances (not just "not paused")
+      await portfolioPage.getProjectMediaContainer(VIDEO_PROJECT).hover();
+      await expect
+        .poll(() => videoLocator.evaluate((v: HTMLVideoElement) => !v.paused && v.currentTime > 0))
+        .toBe(true);
+
+      // 2. Mouse leave: paused and back to the start
+      await portfolioPage.leaveProjectMedia(VIDEO_PROJECT);
+      await expect
+        .poll(() => videoLocator.evaluate((v: HTMLVideoElement) => v.paused && v.currentTime === 0))
+        .toBe(true);
+    }
+  );
 
   test('should verify secure external links for every project in data', async () => {
     for (const project of projects) {
