@@ -47,6 +47,8 @@ export default defineConfig({
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+      /* Playwright WebKit on Windows lacks the video codecs: skip tests that need real playback */
+      grepInvert: /@real-media/,
     },
 
     /* Test against mobile viewports. */

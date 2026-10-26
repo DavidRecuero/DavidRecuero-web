@@ -35,9 +35,7 @@ test.describe('PortfolioPage', () => {
   });
 
 
-  test('should manage video playback lifecycle during hover and mouse leave', async ({ browserName }) => {
-    test.skip(browserName === 'webkit', 'media not reliable on webkit');
-
+  test('should manage video playback lifecycle during hover and mouse leave', { tag: '@real-media' }, async () => {
     const cardTitle = 'Portfolio Web';
     const mediaContainer = portfolioPage.getProjectMediaContainer(cardTitle);
     const videoLocator = portfolioPage.getProjectVideo(cardTitle);
@@ -61,9 +59,7 @@ test.describe('PortfolioPage', () => {
       .toBe(true);
   });
 
-  test('should play on hover and pause + reset on mouse leave', async ({ browserName }) => {
-    test.skip(browserName === 'webkit', 'media not reliable on webkit');
-
+  test('should play on hover and pause + reset on mouse leave', async () => {
     const cardTitle = 'Portfolio Web';
     const { page } = portfolioPage;
     const mediaContainer = portfolioPage.getProjectMediaContainer(cardTitle);
