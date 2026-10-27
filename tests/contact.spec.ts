@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { ContactPage } from './pages/ContactPage';
 import { socialLinks } from '../data/socials';
 
@@ -86,7 +86,10 @@ test.describe('ContactPage', () => {
     await expect(contactPage.submitButton).toBeEnabled();
   });
 
-  test('should show an error and keep the form data when sending fails', async () => {
+  test('should show an error and keep the form data when sending fails', async ({ consoleErrors }) => {
+    // ContactForm logs the failure with console.error: expected here
+    consoleErrors.allow(/E2E mocked failure/);
+
     const failingData = { ...validFormData, email: failingEmail };
 
     await contactPage.fillForm(failingData);

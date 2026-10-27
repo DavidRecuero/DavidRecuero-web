@@ -1,24 +1,19 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
 import { SectionId } from '../../types/project';
 
-export class PortfolioPage {
-  readonly page: Page;
+export class PortfolioPage extends BasePage {
   readonly sectionNav: Locator;
   readonly projectCards: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.sectionNav = page.getByRole('navigation', { name: 'Portfolio sections' });
     this.projectCards = page.getByTestId('project-card');
   }
 
   async goto() {
-    await this.page.goto('/portfolio', { waitUntil: 'domcontentloaded' });
-    await expect(this.projectCards.first()).toBeVisible();
-
-    await this.page.waitForFunction(
-      () => document.documentElement.style.getPropertyValue('--header-height') !== ''
-    );
+    await this.open('/portfolio');
   }
 
   getSection(id: SectionId): Locator {

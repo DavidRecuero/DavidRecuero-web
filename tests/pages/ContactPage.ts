@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class ContactPage {
-  readonly page: Page;
+export class ContactPage extends BasePage {
   readonly availabilityBadge: Locator;
   readonly socialCards: Locator;
   readonly nameInput: Locator;
@@ -13,7 +13,7 @@ export class ContactPage {
   readonly errorBanner: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.availabilityBadge = page.getByTestId('availability-badge');
     this.socialCards = page.getByTestId('social-card');
 
@@ -31,11 +31,7 @@ export class ContactPage {
   }
 
   async goto() {
-    await this.page.goto('/contact');
-
-    await this.page.waitForFunction(
-      () => document.documentElement.style.getPropertyValue('--header-height') !== ''
-    );
+    await this.open('/contact');
   }
 
   async fillForm(data: { name: string; email: string; subject: string; message: string }) {

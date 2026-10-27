@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class HomePage {
-  readonly page: Page;
+export class HomePage extends BasePage {
   readonly mainNav: Locator;
   readonly mainContainer: Locator;
   readonly heroContainer: Locator;
@@ -10,7 +10,7 @@ export class HomePage {
   readonly cvButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.mainNav = page.getByRole('navigation', { name: 'Main' });
     this.mainContainer = page.locator('main');
     this.heroContainer = page.getByTestId('hero-section');
@@ -20,7 +20,7 @@ export class HomePage {
   }
 
   async goto(path = '/') {
-    await this.page.goto(path);
+    await this.open(path);
   }
 
   getNavLink(label: string): Locator {
