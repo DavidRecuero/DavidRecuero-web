@@ -55,15 +55,15 @@ export default defineConfig({
       testIgnore: /assets\.spec\.ts/,
     },
 
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
+    /* Mobile viewport: checks the responsive layout */
+    {
+      name: 'mobile-chrome',
+      use: { ...devices['Pixel 5'] },
+      /* Touch devices have no hover: skip hover-driven tests */
+      grepInvert: /@hover/,
+      /* Browser-independent tests run on chromium only */
+      testIgnore: /assets\.spec\.ts/,
+    },
 
     /* Test against branded browsers. */
     // {

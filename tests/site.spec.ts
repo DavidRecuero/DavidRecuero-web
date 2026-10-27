@@ -11,6 +11,16 @@ test.describe('Site-wide', () => {
       await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /\S/);
       await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     });
+
+    test(`should not overflow horizontally on "${link.label}"`, async ({ page }) => {
+      await new BasePage(page).open(link.href);
+
+      // Content wider than the viewport means a horizontal scrollbar (mainly a mobile issue)
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth
+      );
+      expect(overflow).toBeLessThanOrEqual(0);
+    });
   }
 
   test('should return 404 for unknown routes and keep the site navigation', async ({ page, consoleErrors }) => {

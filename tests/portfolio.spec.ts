@@ -52,7 +52,7 @@ test.describe('PortfolioPage', () => {
     }
   });
 
-  test('should call play on hover and pause + reset on mouse leave', async () => {
+  test('should call play on hover and pause + reset on mouse leave', { tag: '@hover' }, async () => {
     const { page } = portfolioPage;
     const videoLocator = portfolioPage.getProjectVideo(VIDEO_PROJECT);
 
@@ -92,7 +92,7 @@ test.describe('PortfolioPage', () => {
 
   test(
     'should really play the video on hover and stop it on mouse leave',
-    { tag: '@real-media' },
+    { tag: ['@real-media', '@hover'] },
     async () => {
       const videoLocator = portfolioPage.getProjectVideo(VIDEO_PROJECT);
       await expect(videoLocator).toBeAttached();
