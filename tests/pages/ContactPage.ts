@@ -10,19 +10,20 @@ export class ContactPage {
   readonly messageInput: Locator;
   readonly submitButton: Locator;
   readonly successBanner: Locator;
+  readonly errorBanner: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.availabilityBadge = page.getByTestId('availability-badge');
     this.socialCards = page.getByTestId('social-card');
 
-    // Located by label: also verifies every field has an associated <label>
     this.nameInput = page.getByLabel('Your name', { exact: true });
     this.emailInput = page.getByLabel('Your mail', { exact: true });
     this.subjectInput = page.getByLabel('Subject', { exact: true });
     this.messageInput = page.getByLabel('Message', { exact: true });
     this.submitButton = page.getByRole('button', { name: /send message/i });
     this.successBanner = page.getByRole('status');
+    this.errorBanner = page.getByRole('alert').filter({ hasText: 'Something went wrong' });
   }
 
   get formFields(): Locator[] {

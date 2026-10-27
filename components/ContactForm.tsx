@@ -49,6 +49,12 @@ export default function ContactForm() {
         </div>
       )}
 
+      {status === 'error' && (
+        <div role="alert" className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-sm">
+          ✗ Something went wrong. Please try again or reach me through my socials.
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <FormField

@@ -9,6 +9,9 @@ const validFormData = {
   message: 'Hello, this is an automated E2E test message verifying form delivery.',
 };
 
+// The E2E email mock fails for any address on this domain (see actions/sendEmail.ts)
+const failingEmail = 'qa.test@e2e-fail.test';
+
 test.describe('ContactPage', () => {
   let contactPage: ContactPage;
 
@@ -67,5 +70,38 @@ test.describe('ContactPage', () => {
     for (const field of contactPage.formFields) {
       await expect.soft(field).toHaveValue('');
     }
+  });
+
+  test('should show a loading state while the message is being sent', async () => {
+    await contactPage.fillForm(validFormData);
+    await contactPage.submitButton.click();
+
+    // While sending: label changes and the button can't be clicked twice
+    const sendingButton = contactPage.page.getByRole('button', { name: 'Sending...' });
+    await expect(sendingButton).toBeVisible();
+    await expect(sendingButton).toBeDisabled();
+
+    // When done: back to the initial state
+    await expect(contactPage.successBanner).toBeVisible();
+    await expect(contactPage.submitButton).toBeEnabled();
+  });
+
+  test('should show an error and keep the form data when sending fails', async () => {
+    const failingData = { ...validFormData, email: failingEmail };
+
+    await contactPage.fillForm(failingData);
+    await contactPage.submitButton.click();
+
+    await expect(contactPage.errorBanner).toBeVisible();
+    await expect(contactPage.successBanner).toBeHidden();
+
+    // The user must not lose what they wrote
+    await expect.soft(contactPage.nameInput).toHaveValue(failingData.name);
+    await expect.soft(contactPage.emailInput).toHaveValue(failingData.email);
+    await expect.soft(contactPage.subjectInput).toHaveValue(failingData.subject);
+    await expect.soft(contactPage.messageInput).toHaveValue(failingData.message);
+
+    // The user can retry
+    await expect(contactPage.submitButton).toBeEnabled();
   });
 });

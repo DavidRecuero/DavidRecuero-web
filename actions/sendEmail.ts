@@ -3,17 +3,29 @@
 import { Resend } from 'resend';
 import { EmailData } from '../types';
 
-// Init Resend with the API key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY);
+// E2E mock settings (only used when E2E_MOCK_EMAIL is enabled)
+// Any email ending with this domain makes the mock fail, to test the error path
+const E2E_FAIL_EMAIL_DOMAIN = '@e2e-fail.test';
+// Simulated network latency, long enough for tests to observe the loading state
+const E2E_MOCK_DELAY_MS = 500;
 
 export async function sendEmailAction(data: EmailData) {
 
   //Mock for E2E testing purposes
   if (process.env.E2E_MOCK_EMAIL === 'true' && process.env.VERCEL_ENV !== 'production') {
+    await new Promise((resolve) => setTimeout(resolve, E2E_MOCK_DELAY_MS));
+
+    if (data.email.endsWith(E2E_FAIL_EMAIL_DOMAIN)) {
+      return { success: false, error: 'E2E mocked failure' };
+    }
     return { success: true };
   }
 
   try {
+    // Created here and not at module level: the constructor throws without an API key,
+    // which would break any environment without RESEND_API_KEY (e.g. CI)
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     // Mail to receive from the contact form
     const { error } = await resend.emails.send({
       from: 'Portfolio Web Contact <contact@davidrecuero.com>',
@@ -42,6 +54,7 @@ export async function sendEmailAction(data: EmailData) {
 
     return { success: true };
   } catch (error) {
+    console.error('Error while sending email:', error);
     return { success: false, error: 'Internal server error' };
   }
 }
