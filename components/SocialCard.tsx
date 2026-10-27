@@ -23,7 +23,7 @@ export default function SocialCard({ name, url, user, icon}: SocialLinkData) {
           </p>
         </div>
       </div>
-      <span className={`text-xs text-muted group-hover:text-accent transition-colors`}>
+      <span className={`text-xs text-tertiary group-hover:text-accent transition-colors`}>
         {user}
       </span>
     </a>

@@ -6,27 +6,27 @@ import { SiItchdotio, SiGithub, SiSteam, SiAndroid, SiApple, SiPlaystation, SiMa
 export function getPlatformInfo(platform?: PlatformType) {
   switch (platform) {
     case 'github':
-      return { icon: <SiGithub />, label: 'GitHub' };
+      return { icon: <SiGithub aria-hidden />, label: 'GitHub' };
     case 'steam':
-      return { icon: <SiSteam/>, label: 'Steam' };
+      return { icon: <SiSteam aria-hidden />, label: 'Steam' };
     case 'android':
-      return { icon: <SiAndroid />, label: 'Android' };
+      return { icon: <SiAndroid aria-hidden />, label: 'Android' };
     case 'ios':
-      return { icon: <SiApple />, label: 'iOS' };
+      return { icon: <SiApple aria-hidden />, label: 'iOS' };
     case 'itch':
-      return { icon: <SiItchdotio />, label: 'Itch.io' };
+      return { icon: <SiItchdotio aria-hidden />, label: 'Itch.io' };
     case 'pc':
-      return { icon: <FaWindows />, label: 'PC' };
+      return { icon: <FaWindows aria-hidden />, label: 'PC' };
     case 'xbox':
-      return { icon: <FaXbox />, label: 'Xbox' };
+      return { icon: <FaXbox aria-hidden />, label: 'Xbox' };
     case 'ps':
-      return { icon: <SiPlaystation />, label: 'PlayStation' };
+      return { icon: <SiPlaystation aria-hidden />, label: 'PlayStation' };
     case 'mac':
-      return { icon: <SiMacos />, label: 'Mac' };
+      return { icon: <SiMacos aria-hidden />, label: 'Mac' };
     case 'switch':
-      return { icon: <BsNintendoSwitch />, label: 'Switch' };
+      return { icon: <BsNintendoSwitch aria-hidden />, label: 'Switch' };
     case 'other':
-      return { icon: <FaGlobe />, label: 'Project' };
+      return { icon: <FaGlobe aria-hidden />, label: 'Project' };
     default:
       return { icon: null, label: 'See Project' };
   }

@@ -17,7 +17,7 @@ export default function Navbar() {
   return (
     <header
       ref={headerRef}
-      className="w-full backdrop-blur-md bg-background/navbar-transparency font-mono text-primary/navbar-transparency border-b border-tertiary/navbar-border-transparency sticky top-0 z-50"
+      className="w-full backdrop-blur-md bg-background/navbar-transparency font-mono text-secondary border-b border-tertiary/navbar-border-transparency sticky top-0 z-50"
     >
       {/* HEADER - Title */}
       <div className="w-full py-4 px-6 text-center">
@@ -29,7 +29,7 @@ export default function Navbar() {
             {generalData.myName}
           </span>
           <span className="hidden sm:inline text-tertiary/navbar-transparency">|</span>
-          <span className="text-sm text-tertiary/navbar-transparency tracking-wide">
+          <span className="text-sm text-muted tracking-wide">
             {generalData.position}
           </span>
         </Link>

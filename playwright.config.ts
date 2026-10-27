@@ -42,8 +42,8 @@ export default defineConfig({
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
-      /* Browser-independent tests run on chromium only */
-      testIgnore: /assets\.spec\.ts/,
+      /* Browser-independent tests (assets, accessibility) run on chromium only */
+      testIgnore: /(assets|a11y)\.spec\.ts/,
     },
 
     {
@@ -51,8 +51,8 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
       /* Playwright WebKit on Windows lacks the video codecs: skip tests that need real playback */
       grepInvert: /@real-media/,
-      /* Browser-independent tests run on chromium only */
-      testIgnore: /assets\.spec\.ts/,
+      /* Browser-independent tests (assets, accessibility) run on chromium only */
+      testIgnore: /(assets|a11y)\.spec\.ts/,
     },
 
     /* Mobile viewport: checks the responsive layout */

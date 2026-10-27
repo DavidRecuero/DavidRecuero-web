@@ -90,9 +90,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {project.platforms && project.platforms.length > 0 && (
             <div className="flex flex-wrap items-center gap-3 mb-5 text-xl text-secondary">
               {project.platforms.map((plat) => {
-                const { icon } = getPlatformInfo(plat);
+                const { icon, label } = getPlatformInfo(plat);
                 return (
-                  <div key={plat}>
+                  <div key={plat} role="img" aria-label={label} title={label}>
                     {icon}
                   </div>
                 );
