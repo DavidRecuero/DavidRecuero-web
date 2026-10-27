@@ -15,8 +15,8 @@ export const heroData = {
   cvDownloadText: "Download CV (PDF)",
   cvDownloadLink: "/DavidRecuero_Resume.pdf",
   showreelVideos: videoNames.map(name => ({
-    mp4: `videos/${name}.mp4`,
-    webm: `videos/${name}.webm`
+    mp4: `/videos/${name}.mp4`,
+    webm: `/videos/${name}.webm`
   }))
 };
 
