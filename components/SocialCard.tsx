@@ -1,9 +1,5 @@
 import { SocialLinkData } from '@/types';
 
-interface SocialCardProps {
-  social: SocialLinkData;
-}
-
 export default function SocialCard({ name, url, user, icon}: SocialLinkData) {
   return (
     <a

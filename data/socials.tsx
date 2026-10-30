@@ -1,5 +1,5 @@
 import { SocialLinkData } from '@/types/social';
-import { SiGithub, SiGitlab, SiItchdotio } from "react-icons/si";
+import { SiGithub, SiItchdotio } from "react-icons/si";
 import { FaLinkedin} from "react-icons/fa";
 
 export const socialLinks: SocialLinkData[] = [

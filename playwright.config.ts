@@ -19,10 +19,10 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : 3,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  /* GitHub-hosted runners have 4 cores; each CI job runs a single browser project */
+  workers: process.env.CI ? 2 : 3,
+  /* On CI: annotate failures on the commit + keep the HTML report as an artifact */
+  reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -82,6 +82,8 @@ export default defineConfig({
     url: 'http://localhost:3000',
     /* Never reuse a running server (e.g. `npm run dev`): it wouldn't have E2E_MOCK_EMAIL and would send real emails */
     reuseExistingServer: false,
+    /* next build can take over a minute on CI runners (default timeout is 60 s) */
+    timeout: 180_000,
     /* Server-only flag read by actions/sendEmail.ts to skip Resend during E2E runs */
     env: { E2E_MOCK_EMAIL: 'true' },
   },
