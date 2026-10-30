@@ -1,32 +1,27 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
+import { SectionId } from '../../types/project';
 
-export class PortfolioPage {
-  readonly page: Page;
-  readonly navContainer: Locator;
-  readonly commercialSection: Locator;
-  readonly myCodeSection: Locator;
+export class PortfolioPage extends BasePage {
+  readonly sectionNav: Locator;
   readonly projectCards: Locator;
 
   constructor(page: Page) {
-    this.page = page;
-    this.navContainer = page.getByRole('navigation');
-    this.commercialSection = page.locator('section#commercial');
-    this.myCodeSection = page.locator('section#my-code');
-    this.projectCards = page.locator('article');
+    super(page);
+    this.sectionNav = page.getByRole('navigation', { name: 'Portfolio sections' });
+    this.projectCards = page.getByTestId('project-card');
   }
 
   async goto() {
-  await this.page.goto('/portfolio', { waitUntil: 'domcontentloaded' });
+    await this.open('/portfolio');
+  }
 
-  // Wait for the React props to be attached to the navigation button before proceeding
-  await this.page.waitForFunction(() => {
-    const btn = document.querySelector('main nav button');
-    return !!btn && Object.keys(btn).some((k) => k.startsWith('__reactProps$'));
-  });
-}
+  getSection(id: SectionId): Locator {
+    return this.page.locator(`section#${id}`);
+  }
 
-  async clickSectionNav(label: string) {
-    await this.navContainer.getByRole('button', { name: label }).click();
+  getSectionNavButton(label: string): Locator {
+    return this.sectionNav.getByRole('button', { name: label, exact: true });
   }
 
   getProjectCard(title: string): Locator {
@@ -36,10 +31,17 @@ export class PortfolioPage {
   }
 
   getProjectMediaContainer(title: string): Locator {
-    return this.getProjectCard(title).locator('div').first();
+    return this.getProjectCard(title).getByTestId('project-media');
   }
 
   getProjectVideo(title: string): Locator {
     return this.getProjectCard(title).locator('video');
+  }
+
+  /** Moves the mouse onto the card title, outside the media container */
+  async leaveProjectMedia(title: string) {
+    await this.getProjectCard(title)
+      .getByRole('heading', { level: 3, name: title, exact: true })
+      .hover();
   }
 }

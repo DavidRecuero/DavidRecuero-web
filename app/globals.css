@@ -11,10 +11,10 @@
   --text-secondary: #475569;
   --text-tertiary: #94a3b8;
   --text-quaternary: #ffffff;
-  --text-muted: #64748b;
+  --text-muted: #56657a;
   
   --text-input: #1e293b; 
-  --text-accent: #059669; 
+  --text-accent: #047857;
 
   --available-primary: #059669;
   --available-secondary: #10b981;
@@ -35,7 +35,7 @@
     --text-secondary: #94a3b8;
     --text-tertiary: #475569;
     --text-quaternary: #020617;
-    --text-muted: #64748b;
+    --text-muted: #7c8ba1;
     
     --text-input: #f8fafc;
     --text-accent: #10b981;

@@ -1,7 +1,8 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class HomePage {
-  readonly page: Page;
+export class HomePage extends BasePage {
+  readonly mainNav: Locator;
   readonly mainContainer: Locator;
   readonly heroContainer: Locator;
   readonly experienceEducationContainer: Locator;
@@ -9,20 +10,20 @@ export class HomePage {
   readonly cvButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
-    this.mainContainer = page.locator('main'); 
+    super(page);
+    this.mainNav = page.getByRole('navigation', { name: 'Main' });
+    this.mainContainer = page.locator('main');
     this.heroContainer = page.getByTestId('hero-section');
     this.experienceEducationContainer = page.getByTestId('experience-education-section');
     this.skillsContainer = page.getByTestId('skills-section');
-    this.cvButton = page.locator('a[href*=".pdf"], a[href*="cv"]');
+    this.cvButton = page.getByTestId('cv-download-button');
   }
 
-  async goto() {
-    await this.page.goto('http://localhost:3000');
+  async goto(path = '/') {
+    await this.open(path);
   }
 
-  async clickNavLink(linkText: string, expectedPath: string) {
-    await this.page.getByRole('navigation').getByRole('link', { name: linkText }).click();
-    await this.page.waitForURL(`**${expectedPath}`);
+  getNavLink(label: string): Locator {
+    return this.mainNav.getByRole('link', { name: label, exact: true });
   }
 }

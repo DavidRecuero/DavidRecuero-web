@@ -17,7 +17,7 @@ export default function Navbar() {
   return (
     <header
       ref={headerRef}
-      className="w-full backdrop-blur-md bg-background/navbar-transparency font-mono text-primary/navbar-transparency border-b border-tertiary/navbar-border-transparency sticky top-0 z-50"
+      className="w-full backdrop-blur-md bg-background/navbar-transparency font-mono text-secondary border-b border-tertiary/navbar-border-transparency sticky top-0 z-50"
     >
       {/* HEADER - Title */}
       <div className="w-full py-4 px-6 text-center">
@@ -29,19 +29,20 @@ export default function Navbar() {
             {generalData.myName}
           </span>
           <span className="hidden sm:inline text-tertiary/navbar-transparency">|</span>
-          <span className="text-sm text-tertiary/navbar-transparency tracking-wide">
+          <span className="text-sm text-muted tracking-wide">
             {generalData.position}
           </span>
         </Link>
       </div>
 
       {/* NAVIGATION - Buttons */}
-      <nav className="w-full py-3 px-6">
+      <nav aria-label="Main" className="w-full py-3 px-6">
         <ul className="max-w-4xl mx-auto grid grid-cols-3 text-center text-sm">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
+                aria-current={pathname === link.href ? 'page' : undefined}
                 className={`inline-block py-1 transition-colors border-b ${
                   pathname === link.href
                     ? 'border-tertiary/navbar-transparency hover:text-primary'
