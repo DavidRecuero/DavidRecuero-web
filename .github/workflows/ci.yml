@@ -1,0 +1,124 @@
+name: CI
+
+on:
+  # Every push to any branch: feedback on qa/feature branches, and the result
+  # Vercel and the master branch protection wait for
+  push:
+    branches: ['**']
+  # Manual run from the Actions tab
+  workflow_dispatch:
+
+# A new push to the same branch cancels the run still in progress
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: 24
+
+jobs:
+  checks:
+    name: Lint, typecheck & audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Only dependencies shipped to production, and only high/critical issues
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+
+  e2e:
+    name: E2E (${{ matrix.project }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      # Let every browser finish even if one fails: you see all failures at once
+      fail-fast: false
+      matrix:
+        include:
+          - project: chromium
+            browser: chromium
+          - project: firefox
+            browser: firefox
+          - project: webkit
+            browser: webkit
+          - project: mobile-chrome
+            browser: chromium
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Browsers are ~100-300 MB: reuse them while the Playwright version doesn't change
+      - name: Get Playwright version
+        id: playwright
+        run: echo "version=$(npx playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: browser-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}-${{ matrix.browser }}
+
+      - name: Install Playwright browser
+        if: steps.browser-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      # The cache only holds the browser: system libraries must be installed on every run
+      - name: Install browser system dependencies
+        if: steps.browser-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps ${{ matrix.browser }}
+
+      # webServer in playwright.config.ts builds and starts the app with the email mock
+      - name: Run Playwright tests
+        run: npx playwright test --project=${{ matrix.project }}
+
+      - name: Upload report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.project }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+
+  # Single check that sums up the whole run: the one to require in
+  # GitHub branch protection and Vercel Deployment Checks
+  ci-passed:
+    name: CI passed
+    needs: [checks, e2e]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check results
+        if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        run: |
+          echo "Some jobs failed or were cancelled"
+          exit 1
+      - run: echo "All checks passed"

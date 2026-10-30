@@ -3,16 +3,34 @@
 import { Resend } from 'resend';
 import { EmailData } from '../types';
 
-// Init Resend with the API key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY);
+// E2E mock settings (only used when E2E_MOCK_EMAIL is enabled)
+// Any email ending with this domain makes the mock fail, to test the error path
+const E2E_FAIL_EMAIL_DOMAIN = '@e2e-fail.test';
+// Simulated network latency, long enough for tests to observe the loading state
+const E2E_MOCK_DELAY_MS = 500;
 
 export async function sendEmailAction(data: EmailData) {
+
+  //Mock for E2E testing purposes
+  if (process.env.E2E_MOCK_EMAIL === 'true' && process.env.VERCEL_ENV !== 'production') {
+    await new Promise((resolve) => setTimeout(resolve, E2E_MOCK_DELAY_MS));
+
+    if (data.email.endsWith(E2E_FAIL_EMAIL_DOMAIN)) {
+      return { success: false, error: 'E2E mocked failure' };
+    }
+    return { success: true };
+  }
+
   try {
+    // Created here and not at module level: the constructor throws without an API key,
+    // which would break any environment without RESEND_API_KEY (e.g. CI)
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     // Mail to receive from the contact form
     const { error } = await resend.emails.send({
       from: 'Portfolio Web Contact <contact@davidrecuero.com>',
       to: process.env.CONTACT_EMAIL as string,
-      replyTo: data.email, 
+      replyTo: data.email,
       subject: `Portfolio Web Contact: ${data.subject || 'New Message from ' + data.name}`,
       text: `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`,
     });
@@ -24,7 +42,7 @@ export async function sendEmailAction(data: EmailData) {
     // Confirmation email to the user (auto-reply)
     const { error: autoReplyError } = await resend.emails.send({
       from: 'David Recuero <contact@davidrecuero.com>',
-      to: data.email, 
+      to: data.email,
       subject: 'Message received!',
       text: `Hello ${data.name},\n\nThank you for reaching out. I have received your message and will respond as soon as possible.\n\nBest regards,\nDavid Recuero\n\n---\n\nYour message:\nSubject: ${data.subject}\n\n${data.message}`,
     });
@@ -33,9 +51,10 @@ export async function sendEmailAction(data: EmailData) {
     if (autoReplyError) {
       console.error('Error with auto-reply:', autoReplyError.message);
     }
-      
+
     return { success: true };
   } catch (error) {
+    console.error('Error while sending email:', error);
     return { success: false, error: 'Internal server error' };
   }
 }

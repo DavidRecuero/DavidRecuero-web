@@ -3,7 +3,7 @@ import SectionTitle from '@/components/SectionTitle';
 
 export default function Skills() {
   return (
-    <section className="mb-20">
+    <section data-testid="skills-section" className="mb-20">
       <SectionTitle>Skills & Technologies</SectionTitle>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">

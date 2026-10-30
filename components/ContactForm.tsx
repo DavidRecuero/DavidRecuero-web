@@ -44,8 +44,14 @@ export default function ContactForm() {
       <h2 className="text-xl text-primary mb-6">Text me</h2>
 
       {status === 'success' && (
-        <div className="mb-6 p-4 rounded-xl bg-available-primary/10 border border-available-primary/20 text-accent text-sm">
+        <div role="status" className="mb-6 p-4 rounded-xl bg-available-primary/10 border border-available-primary/20 text-accent text-sm">
           ✓ Message sent!
+        </div>
+      )}
+
+      {status === 'error' && (
+        <div role="alert" className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-sm">
+          ✗ Something went wrong. Please try again or reach me through my socials.
         </div>
       )}
 

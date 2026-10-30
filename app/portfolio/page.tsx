@@ -20,31 +20,44 @@ export default function PortfolioPage() {
     }));
   }, []);
 
-  // Scrollspy effect to update the active section based on scroll position
-  useEffect(() => {
-    const rawHeight = getComputedStyle(document.documentElement)
-      .getPropertyValue('--header-height')
-      .trim();
-    
-    const headerHeight = parseInt(rawHeight, 10) || 64;
-    
-    const topMargin = -(headerHeight + 80);
+ useEffect(() => {
+    let frameId = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id as SectionId);
+    const updateActiveSection = () => {
+      const threshold = window.innerHeight / 2;
+
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
+
+      let current = portfolioSections[0].id;
+      if (atBottom) {
+        current = portfolioSections[portfolioSections.length - 1].id;
+      } else {
+        for (const section of portfolioSections) {
+          const element = document.getElementById(section.id);
+          if (element && element.getBoundingClientRect().top <= threshold) {
+            current = section.id;
           }
-        });
-      },
-      { rootMargin: `${topMargin}px 0px -50% 0px` }
-    );
+        }
+      }
 
-    const sections = document.querySelectorAll('section[id]');
-    sections.forEach((section) => observer.observe(section));
+      setActiveSection(current);
+    };
 
-    return () => observer.disconnect();
+    const scheduleUpdate = () => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(updateActiveSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+    };
   }, []);
 
   // Function to scroll to a specific section smoothly

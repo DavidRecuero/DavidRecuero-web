@@ -1,13 +1,10 @@
 import { SocialLinkData } from '@/types';
 
-interface SocialCardProps {
-  social: SocialLinkData;
-}
-
 export default function SocialCard({ name, url, user, icon}: SocialLinkData) {
   return (
     <a
       href={url}
+      data-testid="social-card"
       target="_blank"
       rel="noopener noreferrer"
       className="flex items-center justify-between p-4 rounded-xl bg-button-background hover:bg-button-background-hovered transition-all group"
@@ -22,7 +19,7 @@ export default function SocialCard({ name, url, user, icon}: SocialLinkData) {
           </p>
         </div>
       </div>
-      <span className={`text-xs text-muted group-hover:text-accent transition-colors`}>
+      <span className={`text-xs text-tertiary group-hover:text-accent transition-colors`}>
         {user}
       </span>
     </a>

@@ -30,10 +30,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <article className="grid grid-cols-1 md:grid-cols-12 md:items-center xl:flex xl:flex-col gap-6 rounded-xl p-6 transition-all shadow-lg">
+    <article data-testid="project-card" className="grid grid-cols-1 md:grid-cols-12 md:items-center xl:flex xl:flex-col gap-6 rounded-xl p-6 transition-all shadow-lg">
 
       {/* Top Section (image/video) */}
       <div
+        data-testid="project-media"
         className="md:col-span-5 xl:w-full relative aspect-video rounded-lg overflow-hidden group cursor-pointer"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -89,9 +90,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {project.platforms && project.platforms.length > 0 && (
             <div className="flex flex-wrap items-center gap-3 mb-5 text-xl text-secondary">
               {project.platforms.map((plat) => {
-                const { icon } = getPlatformInfo(plat);
+                const { icon, label } = getPlatformInfo(plat);
                 return (
-                  <div key={plat}>
+                  <div key={plat} role="img" aria-label={label} title={label}>
                     {icon}
                   </div>
                 );

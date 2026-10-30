@@ -1,0 +1,47 @@
+import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
+import { SectionId } from '../../types/project';
+
+export class PortfolioPage extends BasePage {
+  readonly sectionNav: Locator;
+  readonly projectCards: Locator;
+
+  constructor(page: Page) {
+    super(page);
+    this.sectionNav = page.getByRole('navigation', { name: 'Portfolio sections' });
+    this.projectCards = page.getByTestId('project-card');
+  }
+
+  async goto() {
+    await this.open('/portfolio');
+  }
+
+  getSection(id: SectionId): Locator {
+    return this.page.locator(`section#${id}`);
+  }
+
+  getSectionNavButton(label: string): Locator {
+    return this.sectionNav.getByRole('button', { name: label, exact: true });
+  }
+
+  getProjectCard(title: string): Locator {
+    return this.projectCards.filter({
+      has: this.page.getByRole('heading', { name: title, level: 3, exact: true }),
+    });
+  }
+
+  getProjectMediaContainer(title: string): Locator {
+    return this.getProjectCard(title).getByTestId('project-media');
+  }
+
+  getProjectVideo(title: string): Locator {
+    return this.getProjectCard(title).locator('video');
+  }
+
+  /** Moves the mouse onto the card title, outside the media container */
+  async leaveProjectMedia(title: string) {
+    await this.getProjectCard(title)
+      .getByRole('heading', { level: 3, name: title, exact: true })
+      .hover();
+  }
+}
