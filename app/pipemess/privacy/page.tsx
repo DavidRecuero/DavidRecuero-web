@@ -37,7 +37,7 @@ export default function PipeMessPrivacyPage() {
   return (
     <main className="min-h-screen background text-primary px-6 sm:px-12 pt-6 md:pt-12 pb-32 max-w-3xl mx-auto w-full">
       {/* Language selector */}
-      <nav className="font-mono text-sm text-secondary mb-10 flex gap-4 justify-center">
+      <nav aria-label="Language" className="font-mono text-sm text-secondary mb-10 flex gap-4 justify-center">
         {privacyPolicies.map((policy) => (
           <a key={policy.lang} href={`#${policy.lang}`} className="hover:text-primary underline-offset-4 hover:underline">
             {policy.languageName}

@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { test, expect } from './fixtures';
 import { BasePage } from './pages/BasePage';
-import { navLinks } from '../data/siteConfig';
+import { sitePages } from './sitePages';
 
 // WCAG 2.1 level A and AA rules
 const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
@@ -10,11 +10,11 @@ const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
 const colorSchemes = ['light', 'dark'] as const;
 
 test.describe('Accessibility', () => {
-  for (const link of navLinks) {
+  for (const sitePage of sitePages) {
     for (const colorScheme of colorSchemes) {
-      test(`should have no WCAG A/AA violations on "${link.label}" (${colorScheme})`, async ({ page }, testInfo) => {
+      test(`should have no WCAG A/AA violations on "${sitePage.label}" (${colorScheme})`, async ({ page }, testInfo) => {
         await page.emulateMedia({ colorScheme });
-        await new BasePage(page).open(link.href);
+        await new BasePage(page).open(sitePage.path);
 
         const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
 

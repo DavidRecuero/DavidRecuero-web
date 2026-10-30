@@ -1,19 +1,19 @@
 import { test, expect } from './fixtures';
 import { BasePage } from './pages/BasePage';
-import { navLinks } from '../data/siteConfig';
+import { sitePages } from './sitePages';
 
 test.describe('Site-wide', () => {
-  for (const link of navLinks) {
-    test(`should expose title, description and language on "${link.label}"`, async ({ page }) => {
-      await new BasePage(page).open(link.href);
+  for (const sitePage of sitePages) {
+    test(`should expose title, description and language on "${sitePage.label}"`, async ({ page }) => {
+      await new BasePage(page).open(sitePage.path);
 
-      await expect(page).toHaveTitle(/David Recuero/);
+      await expect(page).toHaveTitle(sitePage.title);
       await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /\S/);
       await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     });
 
-    test(`should not overflow horizontally on "${link.label}"`, async ({ page }) => {
-      await new BasePage(page).open(link.href);
+    test(`should not overflow horizontally on "${sitePage.label}"`, async ({ page }) => {
+      await new BasePage(page).open(sitePage.path);
 
       // Content wider than the viewport means a horizontal scrollbar (mainly a mobile issue)
       const overflow = await page.evaluate(

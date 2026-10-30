@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, Response } from '@playwright/test';
 
 export class BasePage {
   readonly page: Page;
@@ -8,13 +8,15 @@ export class BasePage {
   }
 
   /** Navigates to a path and waits until React has hydrated (event handlers are live) */
-  async open(path: string) {
+  async open(path: string): Promise<Response | null> {
     // Not waiting for "load": <video> elements delay it and WebKit on Windows never fires it
-    await this.page.goto(path, { waitUntil: 'domcontentloaded' });
+    const response = await this.page.goto(path, { waitUntil: 'domcontentloaded' });
 
     // Navbar (root layout) sets --header-height in a useEffect → React has hydrated
     await this.page.waitForFunction(
       () => document.documentElement.style.getPropertyValue('--header-height') !== ''
     );
+
+    return response;
   }
 }
