@@ -13,4 +13,6 @@ export const sitePages: SitePage[] = [
   ...navLinks.map((link) => ({ path: link.href, label: link.label, title: /David Recuero/ })),
   // Linked from the Google Play listing of Pipe Mess: must stay reachable at this exact URL
   { path: '/pipemess/privacy', label: 'Pipe Mess privacy', title: /Pipe Mess/ },
+  // Linked from the Google Play Data safety form: must stay reachable at this exact URL
+  { path: '/pipemess/delete-account', label: 'Pipe Mess account deletion', title: /Pipe Mess/ },
 ];
